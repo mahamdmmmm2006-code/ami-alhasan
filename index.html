@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محامص عمي الحسن | AH</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Tahoma, Arial, sans-serif;
+    }
+
+    body {
+      background: #0B1F33;
+      color: #ffffff;
+      line-height: 1.8;
+    }
+
+    header {
+      min-height: 100vh;
+      background: linear-gradient(rgba(11,31,51,0.90), rgba(11,31,51,0.95));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .hero {
+      max-width: 850px;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      border: 3px solid #D4AF37;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: bold;
+      color: #D4AF37;
+      background: rgba(90,56,37,0.45);
+    }
+
+    h1 {
+      font-size: 46px;
+      color: #D4AF37;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 21px;
+      color: #F5E6C8;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #D4AF37;
+      color: #0B1F33;
+      padding: 14px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 6px;
+    }
+
+    section {
+      padding: 65px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      color: #D4AF37;
+      margin-bottom: 30px;
+    }
+
+    .about {
+      background: #102A43;
+      text-align: center;
+    }
+
+    .about p {
+      max-width: 850px;
+      margin: auto;
+      font-size: 19px;
+      color: #F5E6C8;
+    }
+
+    .products {
+      background: #0B1F33;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: #102A43;
+      border: 1px solid rgba(212,175,55,0.45);
+      padding: 28px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .card h3 {
+      color: #D4AF37;
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #F5E6C8;
+      font-size: 17px;
+    }
+
+    .branches {
+      background: #102A43;
+    }
+
+    .branch-box {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .branch {
+      background: #0B1F33;
+      padding: 25px;
+      border-radius: 15px;
+      border-right: 5px solid #D4AF37;
+    }
+
+    .branch h3 {
+      color: #D4AF37;
+      margin-bottom: 10px;
+    }
+
+    .contact {
+      text-align: center;
+      background: #5A3825;
+    }
+
+    .contact p {
+      font-size: 21px;
+      color: #F5E6C8;
+      margin-bottom: 18px;
+    }
+
+    footer {
+      background: #071625;
+      text-align: center;
+      padding: 20px;
+      color: #F5E6C8;
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      section {
+        padding: 50px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="hero">
+      <div class="logo">AH</div>
+      <h1>محامص عمي الحسن</h1>
+      <p>أجود أنواع المكسرات، الفستق، والبزورات الطازجة بتحميص يومي ونكهة فاخرة.</p>
+
+      <a class="btn" href="https://wa.me/31637022173" target="_blank">اطلب الآن عبر واتساب</a>
+      <a class="btn" href="#products">شاهد منتجاتنا</a>
+    </div>
+  </header>
+
+  <section class="about">
+    <h2 class="section-title">من نحن</h2>
+    <p>
+      في محامص عمي الحسن نقدم لكم تشكيلة فاخرة من المكسرات والفستق والبزورات،
+      مع تحميص يومي طازج وجودة عالية تناسب البيت والضيافة والمناسبات.
+    </p>
+  </section>
+
+  <section class="products" id="products">
+    <h2 class="section-title">منتجاتنا</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>المكسرات</h3>
+        <p>
+          كاجو، لوز، بندق، جوز، مكسرات مشكلة، مكسرات مدخنة،
+          مكسرات مالحة، مكسرات نيّة، ومكسرات فاخرة للضيافة.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>الفستق</h3>
+        <p>
+          فستق حلبي، فستق مملح، فستق محمص، فستق بقشر،
+          فستق مقشر، وفستق فاخر للمناسبات.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>البزورات</h3>
+        <p>
+          بزر مصري، بزر دوار الشمس، بزر أبيض، بزر أسود،
+          بزر بطيخ، بزر قرع، وبزورات مشكلة محمصة طازجة.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="branches">
+    <h2 class="section-title">فروعنا</h2>
+
+    <div class="branch-box">
+      <div class="branch">
+        <h3>الفرع الأول</h3>
+        <p>جرجناز، مقابل البريد</p>
+      </div>
+
+      <div class="branch">
+        <h3>الفرع الثاني</h3>
+        <p>جنديرس، شارع يلانقوز</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2 class="section-title">تواصل معنا</h2>
+    <p>للطلب والاستفسار عبر واتساب:</p>
+    <a class="btn" href="https://wa.me/31637022173" target="_blank">
+      +31637022173
+    </a>
+  </section>
+
+  <footer>
+    جميع الحقوق محفوظة © محامص عمي الحسن AH
+  </footer>
+
+</body>
+</html>
