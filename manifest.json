@@ -1,0 +1,22 @@
+{
+  "name": "محامص عمي الحسن",
+  "short_name": "عمي الحسن",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0B1F33",
+  "theme_color": "#0B1F33",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "file_000000003bf472468f53586d998fb431.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "file_000000003bf472468f53586d998fb431.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
