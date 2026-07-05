@@ -1,162 +1,151 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>محامص عمي الحسن | AH</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محامص عمي الحسن | AH</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0B1F33">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0B1F33">
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Tahoma, Arial, sans-serif;
-}
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Tahoma,Arial,sans-serif;
+    }
 
-body{
-  background:#0B1F33;
-  color:#fff;
-  line-height:1.8;
-}
+    body{
+      background:#0B1F33;
+      color:#fff;
+      line-height:1.8;
+    }
 
-.btn{
-  display:inline-block;
-  background:#D4AF37;
-  color:#0B1F33;
-  padding:14px 24px;
-  border-radius:30px;
-  text-decoration:none;
-  font-weight:bold;
-  margin:6px;
-  border:none;
-  cursor:pointer;
-}
+    .btn{
+      display:inline-block;
+      background:#D4AF37;
+      color:#0B1F33;
+      padding:14px 28px;
+      border-radius:40px;
+      text-decoration:none;
+      font-weight:bold;
+      margin:6px;
+    }
 
-/* HERO */
-header{
-  min-height:100vh;
-  background:url("IMG_20260702_213950_590.webp") center/cover no-repeat;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:20px;
-}
+    header{
+      min-height:100vh;
+      background-image:url("IMG_20260702_213950_590.webp");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:30px;
+    }
 
-.hero{
-  background:rgba(11,31,51,0.6);
-  padding:25px;
-  border-radius:25px;
-  max-width:850px;
-}
+    .hero{
+      background:rgba(11,31,51,0.6);
+      padding:30px;
+      border-radius:20px;
+      max-width:850px;
+    }
 
-.logo-img{
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  border:3px solid #D4AF37;
-  margin-bottom:15px;
-}
+    .logo-img{
+      width:170px;
+      height:170px;
+      object-fit:contain;
+      border-radius:50%;
+      border:3px solid #D4AF37;
+      margin:auto;
+      display:block;
+    }
 
-/* SECTIONS */
-section{
-  padding:60px 8%;
-}
+    h1{
+      color:#D4AF37;
+      font-size:42px;
+    }
 
-.section-title{
-  text-align:center;
-  color:#D4AF37;
-  margin-bottom:25px;
-  font-size:30px;
-}
+    section{
+      padding:60px 8%;
+    }
 
-/* CARDS */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:20px;
-}
+    .section-title{
+      text-align:center;
+      color:#D4AF37;
+      margin-bottom:20px;
+      font-size:30px;
+    }
 
-.card{
-  background:#102A43;
-  padding:20px;
-  border-radius:18px;
-  border:1px solid rgba(212,175,55,0.3);
-  text-align:center;
-}
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
 
-/* ITEMS */
-.items-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:18px;
-}
+    .card{
+      background:#102A43;
+      padding:20px;
+      border-radius:15px;
+      text-align:center;
+      border:1px solid #D4AF37;
+    }
 
-.item-card{
-  background:#102A43;
-  border-radius:18px;
-  padding:12px;
-  border:1px solid rgba(212,175,55,0.4);
-  text-align:center;
-  transition:0.3s;
-}
+    .nuts-prices{
+      padding:60px 8%;
+      background:#0B1F33;
+    }
 
-.item-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 15px 30px rgba(0,0,0,0.4);
-}
+    .items-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:15px;
+    }
 
-.item-img{
-  width:100%;
-  height:130px;
-  object-fit:cover;
-  border-radius:12px;
-}
+    .item-card{
+      background:#12324f;
+      border:1px solid #D4AF37;
+      padding:12px;
+      border-radius:15px;
+      text-align:center;
+    }
 
-.price{
-  margin-top:8px;
-  color:#D4AF37;
-  font-weight:bold;
-}
+    .item-img{
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:10px;
+    }
 
-/* CART */
-#cartBox{
-  position:fixed;
-  bottom:15px;
-  left:15px;
-  width:270px;
-  background:#102A43;
-  border:2px solid #D4AF37;
-  border-radius:15px;
-  padding:12px;
-  z-index:9999;
-}
+    footer{
+      text-align:center;
+      padding:20px;
+      background:#071625;
+    }
 
-#cartBox h3{
-  color:#D4AF37;
-}
+    /* السلة */
+    #cartBox{
+      position:fixed;
+      bottom:15px;
+      left:15px;
+      background:#102A43;
+      border:2px solid #D4AF37;
+      padding:12px;
+      border-radius:15px;
+      width:260px;
+      z-index:999;
+    }
 
-.cart-item{
-  font-size:13px;
-  border-bottom:1px solid rgba(255,255,255,0.1);
-  padding:5px 0;
-}
+    #cartBox h3{
+      color:#D4AF37;
+      margin-bottom:10px;
+    }
 
-.add-btn{
-  width:100%;
-  margin-top:8px;
-  padding:8px;
-  border-radius:20px;
-  background:#D4AF37;
-  color:#0B1F33;
-  font-weight:bold;
-  border:none;
-  cursor:pointer;
-}
-</style>
+    #cartTotal{
+      margin:10px 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -165,102 +154,108 @@ section{
   <div class="hero">
     <img class="logo-img" src="file_000000003bf472468f53586d998fb431.png">
     <h1>محامص عمي الحسن</h1>
-    <p>أجود المكسرات والبزورات</p>
+    <p>أجود أنواع المكسرات والبزورات</p>
     <a class="btn" href="https://wa.me/31637022173">اطلب واتساب</a>
   </div>
 </header>
 
-<!-- PRODUCTS -->
-<section>
-<h2 class="section-title">المكسرات</h2>
+<section class="products">
+  <h2 class="section-title">منتجاتنا</h2>
 
-<div class="items-grid">
-
-  <div class="item-card">
-    <img class="item-img" src="cashew-first.jpg">
-    <h3>كاجو نوع أول</h3>
-    <p class="price">14.99$ / كغ</p>
+  <div class="cards">
+    <div class="card">مكسرات</div>
+    <div class="card">فستق</div>
+    <div class="card">بزورات</div>
+    <div class="card">سكاكر</div>
   </div>
-
-  <div class="item-card">
-    <img class="item-img" src="almond-first.jpg">
-    <h3>لوز نوع أول</h3>
-    <p class="price">14.99$ / كغ</p>
-  </div>
-
-  <div class="item-card">
-    <img class="item-img" src="mixed-nuts-first.jpg">
-    <h3>تشكيلة مكسرات</h3>
-    <p class="price">14.99$ / كغ</p>
-  </div>
-
-</div>
 </section>
 
-<!-- CART -->
+<section class="nuts-prices">
+
+  <h2 class="section-title">الأسعار</h2>
+
+  <div class="items-grid">
+
+    <div class="item-card">
+      <img class="item-img" src="cashew-first.jpg">
+      <h3>كاجو نوع أول</h3>
+      <p>14.99$</p>
+    </div>
+
+    <div class="item-card">
+      <img class="item-img" src="almond-first.jpg">
+      <h3>لوز نوع أول</h3>
+      <p>14.99$</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact">
+  <h2 class="section-title">تواصل معنا</h2>
+
+  <a class="btn" href="https://wa.me/31637022173">الإدارة</a>
+  <a class="btn" href="https://wa.me/306992330814">جرجناز</a>
+  <a class="btn" href="https://wa.me/963998804781">جنديرس</a>
+
+  <br><br>
+
+  <a class="btn" href="https://whatsapp.com/channel/0029VbCOKFa96H4bMSuIiv1c">
+    قناة واتساب
+  </a>
+</section>
+
+<footer>
+  جميع الحقوق محفوظة © محامص عمي الحسن AH
+</footer>
+
+<!-- 🛒 السلة -->
 <div id="cartBox">
-<h3>🛒 السلة</h3>
+  <h3>🛒 السلة</h3>
+  <div id="cartItems"></div>
+  <p id="cartTotal">المجموع: 0$</p>
 
-<div id="cartItems"></div>
-<p id="total">المجموع: 0$</p>
-
-<button class="add-btn" onclick="send()">إرسال واتساب</button>
-<button class="add-btn" onclick="clearCart()">تفريغ</button>
+  <button class="btn" onclick="sendOrder()">إرسال واتساب</button>
+  <button class="btn" onclick="clearCart()">تفريغ</button>
 </div>
 
 <script>
-
 let cart = [];
 
-function add(name, price){
-  cart.push({name, price});
-  render();
+function addToCart(name, price){
+  cart.push({name,price});
+  renderCart();
 }
 
-function render(){
-  let html="";
-  let total=0;
+function renderCart(){
+  let box = document.getElementById("cartItems");
+  let total = 0;
 
-  cart.forEach(i=>{
-    html += `<div class="cart-item">${i.name} - ${i.price}$</div>`;
-    total += i.price;
+  box.innerHTML = "";
+
+  cart.forEach(item=>{
+    total += item.price;
+    box.innerHTML += `<div>${item.name} - ${item.price}$</div>`;
   });
 
-  document.getElementById("cartItems").innerHTML = html;
-  document.getElementById("total").innerText = "المجموع: " + total + "$";
+  document.getElementById("cartTotal").innerText = "المجموع: " + total + "$";
 }
 
 function clearCart(){
-  cart=[];
-  render();
+  cart = [];
+  renderCart();
 }
 
-function send(){
-  let msg="طلب جديد:%0A";
+function sendOrder(){
+  let msg = "طلب جديد:%0A";
 
   cart.forEach(i=>{
-    msg += "- "+i.name+" "+i.price+"$%0A";
+    msg += `- ${i.name} (${i.price}$)%0A`;
   });
 
-  window.open("https://wa.me/31637022173?text="+msg);
+  let url = "https://wa.me/31637022173?text=" + msg;
+  window.open(url,"_blank");
 }
-
-/* زر تلقائي */
-window.onload=function(){
-  document.querySelectorAll(".item-card").forEach(card=>{
-    let name = card.querySelector("h3").innerText;
-    let price = parseFloat(card.querySelector(".price").innerText);
-
-    let btn = document.createElement("button");
-    btn.className="add-btn";
-    btn.innerText="أضف للسلة";
-
-    btn.onclick=()=>add(name,price);
-
-    card.appendChild(btn);
-  });
-};
-
 </script>
 
 </body>
