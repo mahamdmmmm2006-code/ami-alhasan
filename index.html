@@ -241,6 +241,22 @@
       border:none;
     }
 
+    .candy-big-box{
+      max-width:1000px;
+      margin:auto;
+      background:#102A43;
+      border:2px solid rgba(212,175,55,0.75);
+      border-radius:24px;
+      padding:12px;
+      box-shadow:0 14px 35px rgba(0,0,0,0.35);
+    }
+
+    .candy-big-box img{
+      width:100%;
+      display:block;
+      border-radius:18px;
+    }
+
     .branches{
       background:#102A43;
     }
@@ -430,6 +446,15 @@
       .price{font-size:16px;}
       .btn{padding:12px 20px;}
 
+      .candy-big-box{
+        padding:8px;
+        border-radius:18px;
+      }
+
+      .candy-big-box img{
+        border-radius:14px;
+      }
+
       #cartBox{
         left:10px;
         bottom:70px;
@@ -491,8 +516,8 @@
 
     <div class="card">
       <h3>السكاكر</h3>
-      <p>سكاكر وشوكولا وضيافة للمناسبات.</p>
-      <button class="btn" onclick="alert('قريباً سيتم إضافة أسعار السكاكر')">قريباً</button>
+      <p>سكاكر، جيلاتين، مارشميلو وضيافة للمناسبات.</p>
+      <button class="btn" onclick="showSection('candy-section')">شاهد السكاكر</button>
     </div>
   </div>
 </section>
@@ -513,6 +538,15 @@
   <h2 class="section-title">أنواع البزورات والأسعار</h2>
   <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
   <div class="items-grid" id="seedsGrid"></div>
+</section>
+
+<section id="candy-section" class="prices-section">
+  <h2 class="section-title">قسم السكاكر</h2>
+  <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
+
+  <div class="candy-big-box">
+    <img src="candy-big.webp" alt="سكاكر محامص عمي الحسن">
+  </div>
 </section>
 
 <section class="branches">
@@ -617,166 +651,4 @@ function renderProducts(products, gridId){
       <div class="item-card" data-name="${product.name}" data-price="${product.price}">
         <img class="item-img" src="${product.img}" alt="${product.name}">
         <h3>${product.name}</h3>
-        <p class="price">${product.price}$ / كغ</p>
-
-        <select class="kg-select">
-          <option value="0.5">نصف كيلو</option>
-          <option value="1" selected>1 كيلو</option>
-          <option value="1.5">1.5 كيلو</option>
-          <option value="2">2 كيلو</option>
-          <option value="3">3 كيلو</option>
-        </select>
-
-        <button class="add-cart-btn" onclick="addProduct(this)">أضف للسلة</button>
-      </div>
-    `;
-  });
-}
-
-function showSection(sectionId){
-  document.getElementById("nuts-prices").classList.remove("active");
-  document.getElementById("pistachio-prices").classList.remove("active");
-  document.getElementById("seeds-prices").classList.remove("active");
-
-  document.getElementById(sectionId).classList.add("active");
-  document.getElementById(sectionId).scrollIntoView({behavior:"smooth"});
-}
-
-function hidePrices(){
-  document.getElementById("nuts-prices").classList.remove("active");
-  document.getElementById("pistachio-prices").classList.remove("active");
-  document.getElementById("seeds-prices").classList.remove("active");
-  document.getElementById("products").scrollIntoView({behavior:"smooth"});
-}
-
-function saveCart(){
-  localStorage.setItem("ah_cart", JSON.stringify(cart));
-}
-
-function toggleCart(){
-  const box = document.getElementById("cartBox");
-  box.style.display = box.style.display === "block" ? "none" : "block";
-}
-
-function showToast(){
-  const toast = document.getElementById("toast");
-  toast.style.display = "block";
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 1400);
-}
-
-function addProduct(button){
-  const card = button.closest(".item-card");
-  const name = card.dataset.name;
-  const price = parseFloat(card.dataset.price);
-  const kg = parseFloat(card.querySelector(".kg-select").value);
-
-  const key = name + "-" + kg;
-  const existing = cart.find(item => item.key === key);
-
-  if(existing){
-    existing.count += 1;
-  } else {
-    cart.push({
-      key: key,
-      name: name,
-      price: price,
-      kg: kg,
-      count: 1
-    });
-  }
-
-  saveCart();
-  renderCart();
-  showToast();
-}
-
-function changeCount(index, amount){
-  cart[index].count += amount;
-
-  if(cart[index].count <= 0){
-    cart.splice(index, 1);
-  }
-
-  saveCart();
-  renderCart();
-}
-
-function removeItem(index){
-  cart.splice(index, 1);
-  saveCart();
-  renderCart();
-}
-
-function renderCart(){
-  const cartItems = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  const cartCount = document.getElementById("cartCount");
-
-  cartItems.innerHTML = "";
-
-  let total = 0;
-  let countTotal = 0;
-
-  cart.forEach((item, index) => {
-    const itemTotal = item.price * item.kg * item.count;
-    total += itemTotal;
-    countTotal += item.count;
-
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <strong>${item.name}</strong>
-        الوزن: ${item.kg} كغ × العدد: ${item.count}<br>
-        السعر: ${itemTotal.toFixed(2)}$
-        <div class="cart-actions">
-          <button onclick="changeCount(${index}, 1)">+</button>
-          <button onclick="changeCount(${index}, -1)">-</button>
-          <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
-        </div>
-      </div>
-    `;
-  });
-
-  cartTotal.innerText = "المجموع: " + total.toFixed(2) + "$";
-  cartCount.innerText = countTotal;
-}
-
-function clearCart(){
-  cart = [];
-  saveCart();
-  renderCart();
-}
-
-function sendOrder(){
-  if(cart.length === 0){
-    alert("السلة فارغة");
-    return;
-  }
-
-  let total = 0;
-  let msg = "طلب جديد من موقع محامص عمي الحسن:%0A%0A";
-
-  cart.forEach(item => {
-    const itemTotal = item.price * item.kg * item.count;
-    total += itemTotal;
-
-    msg += "- " + item.name + "%0A";
-    msg += "الوزن: " + item.kg + " كغ%0A";
-    msg += "العدد: " + item.count + "%0A";
-    msg += "السعر: " + itemTotal.toFixed(2) + "$%0A%0A";
-  });
-
-  msg += "المجموع الكلي: " + total.toFixed(2) + "$";
-
-  window.open("https://wa.me/31637022173?text=" + msg, "_blank");
-}
-
-renderProducts(nutsProducts, "nutsGrid");
-renderProducts(pistachioProducts, "pistachioGrid");
-renderProducts(seedsProducts, "seedsGrid");
-renderCart();
-</script>
-
-</body>
-</html>
+        <p class="price">${product.price}$ /
