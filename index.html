@@ -20,6 +20,7 @@
       background:#0B1F33;
       color:#fff;
       line-height:1.8;
+      padding-bottom:80px;
     }
 
     .btn{
@@ -31,6 +32,14 @@
       text-decoration:none;
       font-weight:bold;
       margin:6px;
+      border:none;
+      cursor:pointer;
+      transition:0.25s;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      background:#f0c94f;
     }
 
     header{
@@ -46,10 +55,12 @@
     }
 
     .hero{
-      background:rgba(11,31,51,0.6);
+      background:rgba(11,31,51,0.68);
       padding:30px;
-      border-radius:20px;
+      border-radius:22px;
       max-width:850px;
+      border:1px solid rgba(212,175,55,0.35);
+      box-shadow:0 20px 45px rgba(0,0,0,0.35);
     }
 
     .logo-img{
@@ -60,11 +71,22 @@
       border:3px solid #D4AF37;
       margin:auto;
       display:block;
+      background:rgba(11,31,51,0.7);
+      padding:8px;
     }
 
     h1{
       color:#D4AF37;
       font-size:42px;
+      margin-top:12px;
+      text-shadow:2px 2px 6px rgba(0,0,0,0.8);
+    }
+
+    .hero p{
+      font-size:20px;
+      margin:12px 0 20px;
+      color:#F5E6C8;
+      font-weight:bold;
     }
 
     section{
@@ -86,76 +108,305 @@
 
     .card{
       background:#102A43;
-      padding:20px;
-      border-radius:15px;
+      padding:22px;
+      border-radius:18px;
       text-align:center;
-      border:1px solid #D4AF37;
+      border:1px solid rgba(212,175,55,0.65);
+      box-shadow:0 12px 25px rgba(0,0,0,0.25);
+    }
+
+    .card h3{
+      color:#D4AF37;
+      margin-bottom:8px;
     }
 
     .nuts-prices{
       padding:60px 8%;
-      background:#0B1F33;
+      background:linear-gradient(180deg,#0B1F33,#071827);
     }
 
     .items-grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:15px;
+      max-width:900px;
+      margin:auto;
     }
 
     .item-card{
-      background:#12324f;
-      border:1px solid #D4AF37;
+      background:linear-gradient(180deg,#12324f,#0d2439);
+      border:1px solid rgba(212,175,55,0.7);
       padding:12px;
-      border-radius:15px;
+      border-radius:18px;
       text-align:center;
+      box-shadow:0 12px 25px rgba(0,0,0,0.28);
+      transition:0.25s;
+    }
+
+    .item-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 35px rgba(0,0,0,0.38);
     }
 
     .item-img{
       width:100%;
-      height:120px;
+      height:125px;
       object-fit:cover;
-      border-radius:10px;
+      border-radius:12px;
+      border:1px solid rgba(212,175,55,0.35);
+    }
+
+    .item-card h3{
+      color:#D4AF37;
+      font-size:18px;
+      margin:8px 0 5px;
+    }
+
+    .price{
+      display:inline-block;
+      color:#fff;
+      background:rgba(212,175,55,0.14);
+      border:1px solid rgba(212,175,55,0.35);
+      padding:7px 12px;
+      border-radius:14px;
+      margin:8px 0;
+      font-weight:bold;
+    }
+
+    .kg-select{
+      width:100%;
+      padding:10px;
+      border-radius:12px;
+      border:1px solid rgba(212,175,55,0.55);
+      background:#0B1F33;
+      color:#fff;
+      margin-top:8px;
+      font-weight:bold;
+      text-align:center;
+    }
+
+    .add-cart-btn{
+      width:100%;
+      margin-top:10px;
+      padding:11px;
+      border-radius:14px;
+      background:#D4AF37;
+      color:#0B1F33;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .contact{
+      text-align:center;
+      background:#5A3825;
     }
 
     footer{
       text-align:center;
       padding:20px;
       background:#071625;
+      color:#F5E6C8;
     }
 
-    /* السلة */
+    /* زر السلة */
+    #cartToggle{
+      position:fixed;
+      bottom:18px;
+      left:18px;
+      background:#D4AF37;
+      color:#0B1F33;
+      padding:13px 18px;
+      border-radius:40px;
+      font-weight:bold;
+      cursor:pointer;
+      z-index:10000;
+      box-shadow:0 12px 30px rgba(0,0,0,0.4);
+      border:none;
+    }
+
+    #cartCount{
+      background:#0B1F33;
+      color:#fff;
+      padding:2px 8px;
+      border-radius:20px;
+      margin-right:5px;
+      font-size:13px;
+    }
+
+    /* صندوق السلة */
     #cartBox{
       position:fixed;
-      bottom:15px;
-      left:15px;
+      bottom:75px;
+      left:18px;
       background:#102A43;
       border:2px solid #D4AF37;
-      padding:12px;
-      border-radius:15px;
-      width:260px;
-      z-index:999;
+      padding:14px;
+      border-radius:18px;
+      width:300px;
+      max-width:calc(100vw - 36px);
+      z-index:9999;
+      display:none;
+      box-shadow:0 18px 45px rgba(0,0,0,0.45);
     }
 
     #cartBox h3{
       color:#D4AF37;
       margin-bottom:10px;
+      text-align:center;
+    }
+
+    #cartItems{
+      max-height:260px;
+      overflow:auto;
+      margin-bottom:10px;
+    }
+
+    .cart-item{
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(212,175,55,0.25);
+      border-radius:12px;
+      padding:8px;
+      margin-bottom:8px;
+      font-size:13px;
+    }
+
+    .cart-item strong{
+      color:#D4AF37;
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .cart-actions{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      margin-top:6px;
+      flex-wrap:wrap;
+    }
+
+    .cart-actions button{
+      background:#D4AF37;
+      color:#0B1F33;
+      border:none;
+      border-radius:8px;
+      padding:4px 9px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .remove-btn{
+      background:#8b1e1e !important;
+      color:#fff !important;
     }
 
     #cartTotal{
       margin:10px 0;
+      color:#D4AF37;
+      font-weight:bold;
+      text-align:center;
+      font-size:18px;
+    }
+
+    .cart-main-btn{
+      width:100%;
+      margin-top:7px;
+      padding:11px;
+      border-radius:14px;
+      background:#D4AF37;
+      color:#0B1F33;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .cart-clear-btn{
+      width:100%;
+      margin-top:7px;
+      padding:10px;
+      border-radius:14px;
+      background:#6b6b6b;
+      color:#fff;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .toast{
+      position:fixed;
+      top:18px;
+      right:18px;
+      background:#D4AF37;
+      color:#0B1F33;
+      padding:10px 16px;
+      border-radius:14px;
+      font-weight:bold;
+      z-index:20000;
+      display:none;
+      box-shadow:0 12px 25px rgba(0,0,0,0.35);
+    }
+
+    @media(max-width:650px){
+      h1{
+        font-size:34px;
+      }
+
+      .hero p{
+        font-size:17px;
+      }
+
+      section{
+        padding:45px 5%;
+      }
+
+      .items-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+      }
+
+      .item-img{
+        height:115px;
+      }
+
+      .item-card{
+        padding:10px;
+      }
+
+      .item-card h3{
+        font-size:16px;
+      }
+
+      .btn{
+        padding:12px 20px;
+      }
+
+      #cartBox{
+        left:10px;
+        bottom:70px;
+        width:calc(100vw - 20px);
+      }
+
+      #cartToggle{
+        left:10px;
+        bottom:12px;
+      }
     }
   </style>
 </head>
 
 <body>
 
+<div class="toast" id="toast">تمت الإضافة للسلة ✅</div>
+
 <header>
   <div class="hero">
-    <img class="logo-img" src="file_000000003bf472468f53586d998fb431.png">
+    <img class="logo-img" src="file_000000003bf472468f53586d998fb431.png" alt="شعار محامص عمي الحسن">
     <h1>محامص عمي الحسن</h1>
     <p>أجود أنواع المكسرات والبزورات</p>
-    <a class="btn" href="https://wa.me/31637022173">اطلب واتساب</a>
+    <a class="btn" href="https://wa.me/31637022173" target="_blank">اطلب واتساب</a>
+    <a class="btn" href="#prices">شاهد المنتجات</a>
   </div>
 </header>
 
@@ -163,29 +414,64 @@
   <h2 class="section-title">منتجاتنا</h2>
 
   <div class="cards">
-    <div class="card">مكسرات</div>
-    <div class="card">فستق</div>
-    <div class="card">بزورات</div>
-    <div class="card">سكاكر</div>
+    <div class="card">
+      <h3>مكسرات</h3>
+      <p>كاجو، لوز، جوز، وتشكيلات فاخرة للضيافة.</p>
+    </div>
+
+    <div class="card">
+      <h3>فستق</h3>
+      <p>فستق محمص، مالح، ومدخن بجودة عالية.</p>
+    </div>
+
+    <div class="card">
+      <h3>بزورات</h3>
+      <p>بزر مصري وبزورات مشكلة محمصة يومياً.</p>
+    </div>
+
+    <div class="card">
+      <h3>سكاكر</h3>
+      <p>سكاكر وشوكولا وضيافة للمناسبات.</p>
+    </div>
   </div>
 </section>
 
-<section class="nuts-prices">
+<section class="nuts-prices" id="prices">
 
   <h2 class="section-title">الأسعار</h2>
 
   <div class="items-grid">
 
-    <div class="item-card">
-      <img class="item-img" src="cashew-first.jpg">
+    <div class="item-card" data-name="كاجو نوع أول" data-price="14.99">
+      <img class="item-img" src="cashew-first.jpg" alt="كاجو نوع أول">
       <h3>كاجو نوع أول</h3>
-      <p>14.99$</p>
+      <p class="price">14.99$ / كغ</p>
+
+      <select class="kg-select">
+        <option value="0.5">نصف كيلو</option>
+        <option value="1" selected>1 كيلو</option>
+        <option value="1.5">1.5 كيلو</option>
+        <option value="2">2 كيلو</option>
+        <option value="3">3 كيلو</option>
+      </select>
+
+      <button class="add-cart-btn" onclick="addProduct(this)">أضف للسلة</button>
     </div>
 
-    <div class="item-card">
-      <img class="item-img" src="almond-first.jpg">
+    <div class="item-card" data-name="لوز نوع أول" data-price="14.99">
+      <img class="item-img" src="almond-first.jpg" alt="لوز نوع أول">
       <h3>لوز نوع أول</h3>
-      <p>14.99$</p>
+      <p class="price">14.99$ / كغ</p>
+
+      <select class="kg-select">
+        <option value="0.5">نصف كيلو</option>
+        <option value="1" selected>1 كيلو</option>
+        <option value="1.5">1.5 كيلو</option>
+        <option value="2">2 كيلو</option>
+        <option value="3">3 كيلو</option>
+      </select>
+
+      <button class="add-cart-btn" onclick="addProduct(this)">أضف للسلة</button>
     </div>
 
   </div>
@@ -194,13 +480,13 @@
 <section class="contact">
   <h2 class="section-title">تواصل معنا</h2>
 
-  <a class="btn" href="https://wa.me/31637022173">الإدارة</a>
-  <a class="btn" href="https://wa.me/306992330814">جرجناز</a>
-  <a class="btn" href="https://wa.me/963998804781">جنديرس</a>
+  <a class="btn" href="https://wa.me/31637022173" target="_blank">الإدارة</a>
+  <a class="btn" href="https://wa.me/306992330814" target="_blank">جرجناز</a>
+  <a class="btn" href="https://wa.me/963998804781" target="_blank">جنديرس</a>
 
   <br><br>
 
-  <a class="btn" href="https://whatsapp.com/channel/0029VbCOKFa96H4bMSuIiv1c">
+  <a class="btn" href="https://whatsapp.com/channel/0029VbCOKFa96H4bMSuIiv1c" target="_blank">
     قناة واتساب
   </a>
 </section>
@@ -209,53 +495,144 @@
   جميع الحقوق محفوظة © محامص عمي الحسن AH
 </footer>
 
-<!-- 🛒 السلة -->
+<button id="cartToggle" onclick="toggleCart()">🛒 السلة <span id="cartCount">0</span></button>
+
 <div id="cartBox">
-  <h3>🛒 السلة</h3>
+  <h3>🛒 سلة الطلب</h3>
   <div id="cartItems"></div>
   <p id="cartTotal">المجموع: 0$</p>
 
-  <button class="btn" onclick="sendOrder()">إرسال واتساب</button>
-  <button class="btn" onclick="clearCart()">تفريغ</button>
+  <button class="cart-main-btn" onclick="sendOrder()">إرسال الطلب واتساب</button>
+  <button class="cart-clear-btn" onclick="clearCart()">تفريغ السلة</button>
 </div>
 
 <script>
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("ah_cart")) || [];
 
-function addToCart(name, price){
-  cart.push({name,price});
+function saveCart(){
+  localStorage.setItem("ah_cart", JSON.stringify(cart));
+}
+
+function toggleCart(){
+  const box = document.getElementById("cartBox");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function showToast(){
+  const toast = document.getElementById("toast");
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 1400);
+}
+
+function addProduct(button){
+  const card = button.closest(".item-card");
+  const name = card.dataset.name;
+  const price = parseFloat(card.dataset.price);
+  const kg = parseFloat(card.querySelector(".kg-select").value);
+
+  const key = name + "-" + kg;
+  const existing = cart.find(item => item.key === key);
+
+  if(existing){
+    existing.count += 1;
+  } else {
+    cart.push({
+      key: key,
+      name: name,
+      price: price,
+      kg: kg,
+      count: 1
+    });
+  }
+
+  saveCart();
+  renderCart();
+  showToast();
+}
+
+function changeCount(index, amount){
+  cart[index].count += amount;
+
+  if(cart[index].count <= 0){
+    cart.splice(index, 1);
+  }
+
+  saveCart();
+  renderCart();
+}
+
+function removeItem(index){
+  cart.splice(index, 1);
+  saveCart();
   renderCart();
 }
 
 function renderCart(){
-  let box = document.getElementById("cartItems");
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartCount = document.getElementById("cartCount");
+
+  cartItems.innerHTML = "";
+
   let total = 0;
+  let countTotal = 0;
 
-  box.innerHTML = "";
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.kg * item.count;
+    total += itemTotal;
+    countTotal += item.count;
 
-  cart.forEach(item=>{
-    total += item.price;
-    box.innerHTML += `<div>${item.name} - ${item.price}$</div>`;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <strong>${item.name}</strong>
+        الوزن: ${item.kg} كغ × العدد: ${item.count}<br>
+        السعر: ${itemTotal.toFixed(2)}$
+        <div class="cart-actions">
+          <button onclick="changeCount(${index}, 1)">+</button>
+          <button onclick="changeCount(${index}, -1)">-</button>
+          <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+        </div>
+      </div>
+    `;
   });
 
-  document.getElementById("cartTotal").innerText = "المجموع: " + total + "$";
+  cartTotal.innerText = "المجموع: " + total.toFixed(2) + "$";
+  cartCount.innerText = countTotal;
 }
 
 function clearCart(){
   cart = [];
+  saveCart();
   renderCart();
 }
 
 function sendOrder(){
-  let msg = "طلب جديد:%0A";
+  if(cart.length === 0){
+    alert("السلة فارغة");
+    return;
+  }
 
-  cart.forEach(i=>{
-    msg += `- ${i.name} (${i.price}$)%0A`;
+  let total = 0;
+  let msg = "طلب جديد من موقع محامص عمي الحسن:%0A%0A";
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.kg * item.count;
+    total += itemTotal;
+
+    msg += "- " + item.name + "%0A";
+    msg += "الوزن: " + item.kg + " كغ%0A";
+    msg += "العدد: " + item.count + "%0A";
+    msg += "السعر: " + itemTotal.toFixed(2) + "$%0A%0A";
   });
 
-  let url = "https://wa.me/31637022173?text=" + msg;
-  window.open(url,"_blank");
+  msg += "المجموع الكلي: " + total.toFixed(2) + "$";
+
+  window.open("https://wa.me/31637022173?text=" + msg, "_blank");
 }
+
+renderCart();
 </script>
 
 </body>
