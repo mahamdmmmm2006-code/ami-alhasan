@@ -132,6 +132,16 @@
       box-shadow:0 10px 25px rgba(0,0,0,0.25);
     }
 
+    .card-img{
+      width:100%;
+      height:155px;
+      object-fit:cover;
+      border-radius:16px;
+      margin-bottom:14px;
+      border:1px solid rgba(212,175,55,0.45);
+      box-shadow:0 8px 20px rgba(0,0,0,0.25);
+    }
+
     .card h3{
       color:#D4AF37;
       font-size:24px;
@@ -446,6 +456,10 @@
       .price{font-size:16px;}
       .btn{padding:12px 20px;}
 
+      .card-img{
+        height:135px;
+      }
+
       .candy-big-box{
         padding:8px;
         border-radius:18px;
@@ -497,24 +511,28 @@
 
   <div class="cards">
     <div class="card">
+      <img class="card-img" src="mixed-nuts-first.jpg" alt="المكسرات">
       <h3>المكسرات</h3>
       <p>كاجو، لوز، جوز، وتشكيلات فاخرة للضيافة.</p>
       <button class="btn" onclick="showSection('nuts-prices')">شاهد المكسرات</button>
     </div>
 
     <div class="card">
+      <img class="card-img" src="IMG_20260704_224254_287.webp" alt="الفستق">
       <h3>الفستق</h3>
       <p>فستق مالح، مدخن، قضامة، وذرة بنكهات مميزة.</p>
       <button class="btn" onclick="showSection('pistachio-prices')">شاهد الفستق</button>
     </div>
 
     <div class="card">
+      <img class="card-img" src="IMG_20260711_123428_171.webp" alt="البزورات">
       <h3>البزورات</h3>
       <p>بزر مصري، صنوبر، كوسا، يقطين وبزورات محمصة يومياً.</p>
       <button class="btn" onclick="showSection('seeds-prices')">شاهد البزورات</button>
     </div>
 
     <div class="card">
+      <img class="card-img" src="candy-big.webp" alt="السكاكر">
       <h3>السكاكر</h3>
       <p>سكاكر، جيلاتين، مارشميلو وضيافة للمناسبات.</p>
       <button class="btn" onclick="showSection('candy-section')">شاهد السكاكر</button>
@@ -651,4 +669,168 @@ function renderProducts(products, gridId){
       <div class="item-card" data-name="${product.name}" data-price="${product.price}">
         <img class="item-img" src="${product.img}" alt="${product.name}">
         <h3>${product.name}</h3>
-        <p class="price">${product.price}$ /
+        <p class="price">${product.price}$ / كغ</p>
+
+        <select class="kg-select">
+          <option value="0.5">نصف كيلو</option>
+          <option value="1" selected>1 كيلو</option>
+          <option value="1.5">1.5 كيلو</option>
+          <option value="2">2 كيلو</option>
+          <option value="3">3 كيلو</option>
+        </select>
+
+        <button class="add-cart-btn" onclick="addProduct(this)">أضف للسلة</button>
+      </div>
+    `;
+  });
+}
+
+function showSection(sectionId){
+  document.getElementById("nuts-prices").classList.remove("active");
+  document.getElementById("pistachio-prices").classList.remove("active");
+  document.getElementById("seeds-prices").classList.remove("active");
+  document.getElementById("candy-section").classList.remove("active");
+
+  document.getElementById(sectionId).classList.add("active");
+  document.getElementById(sectionId).scrollIntoView({behavior:"smooth"});
+}
+
+function hidePrices(){
+  document.getElementById("nuts-prices").classList.remove("active");
+  document.getElementById("pistachio-prices").classList.remove("active");
+  document.getElementById("seeds-prices").classList.remove("active");
+  document.getElementById("candy-section").classList.remove("active");
+  document.getElementById("products").scrollIntoView({behavior:"smooth"});
+}
+
+function saveCart(){
+  localStorage.setItem("ah_cart", JSON.stringify(cart));
+}
+
+function toggleCart(){
+  const box = document.getElementById("cartBox");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function showToast(){
+  const toast = document.getElementById("toast");
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 1400);
+}
+
+function addProduct(button){
+  const card = button.closest(".item-card");
+  const name = card.dataset.name;
+  const price = parseFloat(card.dataset.price);
+  const kg = parseFloat(card.querySelector(".kg-select").value);
+
+  const key = name + "-" + kg;
+  const existing = cart.find(item => item.key === key);
+
+  if(existing){
+    existing.count += 1;
+  } else {
+    cart.push({
+      key: key,
+      name: name,
+      price: price,
+      kg: kg,
+      count: 1
+    });
+  }
+
+  saveCart();
+  renderCart();
+  showToast();
+}
+
+function changeCount(index, amount){
+  cart[index].count += amount;
+
+  if(cart[index].count <= 0){
+    cart.splice(index, 1);
+  }
+
+  saveCart();
+  renderCart();
+}
+
+function removeItem(index){
+  cart.splice(index, 1);
+  saveCart();
+  renderCart();
+}
+
+function renderCart(){
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartCount = document.getElementById("cartCount");
+
+  cartItems.innerHTML = "";
+
+  let total = 0;
+  let countTotal = 0;
+
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.kg * item.count;
+    total += itemTotal;
+    countTotal += item.count;
+
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <strong>${item.name}</strong>
+        الوزن: ${item.kg} كغ × العدد: ${item.count}<br>
+        السعر: ${itemTotal.toFixed(2)}$
+        <div class="cart-actions">
+          <button onclick="changeCount(${index}, 1)">+</button>
+          <button onclick="changeCount(${index}, -1)">-</button>
+          <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+        </div>
+      </div>
+    `;
+  });
+
+  cartTotal.innerText = "المجموع: " + total.toFixed(2) + "$";
+  cartCount.innerText = countTotal;
+}
+
+function clearCart(){
+  cart = [];
+  saveCart();
+  renderCart();
+}
+
+function sendOrder(){
+  if(cart.length === 0){
+    alert("السلة فارغة");
+    return;
+  }
+
+  let total = 0;
+  let msg = "طلب جديد من موقع محامص عمي الحسن:%0A%0A";
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.kg * item.count;
+    total += itemTotal;
+
+    msg += "- " + item.name + "%0A";
+    msg += "الوزن: " + item.kg + " كغ%0A";
+    msg += "العدد: " + item.count + "%0A";
+    msg += "السعر: " + itemTotal.toFixed(2) + "$%0A%0A";
+  });
+
+  msg += "المجموع الكلي: " + total.toFixed(2) + "$";
+
+  window.open("https://wa.me/31637022173?text=" + msg, "_blank");
+}
+
+renderProducts(nutsProducts, "nutsGrid");
+renderProducts(pistachioProducts, "pistachioGrid");
+renderProducts(seedsProducts, "seedsGrid");
+renderCart();
+</script>
+
+</body>
+</html>
