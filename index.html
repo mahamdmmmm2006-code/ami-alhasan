@@ -420,43 +420,15 @@
     }
 
     @media(max-width:650px){
-      h1{
-        font-size:34px;
-      }
-
-      .hero p{
-        font-size:17px;
-      }
-
-      section{
-        padding:45px 5%;
-      }
-
-      .items-grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-      }
-
-      .item-img{
-        height:115px;
-      }
-
-      .item-card{
-        padding:10px;
-      }
-
-      .item-card h3{
-        font-size:16px;
-        min-height:45px;
-      }
-
-      .price{
-        font-size:16px;
-      }
-
-      .btn{
-        padding:12px 20px;
-      }
+      h1{font-size:34px;}
+      .hero p{font-size:17px;}
+      section{padding:45px 5%;}
+      .items-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+      .item-img{height:115px;}
+      .item-card{padding:10px;}
+      .item-card h3{font-size:16px;min-height:45px;}
+      .price{font-size:16px;}
+      .btn{padding:12px 20px;}
 
       #cartBox{
         left:10px;
@@ -513,8 +485,8 @@
 
     <div class="card">
       <h3>البزورات</h3>
-      <p>بزر مصري وبزورات مشكلة محمصة يومياً.</p>
-      <button class="btn" onclick="alert('قريباً سيتم إضافة أسعار البزورات')">قريباً</button>
+      <p>بزر مصري، صنوبر، كوسا، يقطين وبزورات محمصة يومياً.</p>
+      <button class="btn" onclick="showSection('seeds-prices')">شاهد البزورات</button>
     </div>
 
     <div class="card">
@@ -535,6 +507,12 @@
   <h2 class="section-title">أنواع الفستق والأسعار</h2>
   <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
   <div class="items-grid" id="pistachioGrid"></div>
+</section>
+
+<section id="seeds-prices" class="prices-section">
+  <h2 class="section-title">أنواع البزورات والأسعار</h2>
+  <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
+  <div class="items-grid" id="seedsGrid"></div>
 </section>
 
 <section class="branches">
@@ -619,6 +597,15 @@ const pistachioProducts = [
   {name:"ذرة بنكهة الكتشب نوع أول", price:3.19, img:"IMG_20260704_224639_313.webp"}
 ];
 
+const seedsProducts = [
+  {name:"بزر صنوبر نوع أول", price:4.25, img:"pine-seeds-first.webp"},
+  {name:"بزر مقشور نوع أول", price:3.20, img:"peeled-seeds-first.webp"},
+  {name:"بزر تركي 601 نوع أول", price:3.20, img:"turkish-601-seeds-first.webp"},
+  {name:"بزر مصري نوع أول", price:3.20, img:"egyptian-seeds-first.webp"},
+  {name:"بزر كوسا نوع أول", price:5.32, img:"zucchini-seeds-first.webp"},
+  {name:"بزر يقطين نوع أول", price:5.32, img:"pumpkin-seeds-first.webp"}
+];
+
 let cart = JSON.parse(localStorage.getItem("ah_cart")) || [];
 
 function renderProducts(products, gridId){
@@ -649,6 +636,7 @@ function renderProducts(products, gridId){
 function showSection(sectionId){
   document.getElementById("nuts-prices").classList.remove("active");
   document.getElementById("pistachio-prices").classList.remove("active");
+  document.getElementById("seeds-prices").classList.remove("active");
 
   document.getElementById(sectionId).classList.add("active");
   document.getElementById(sectionId).scrollIntoView({behavior:"smooth"});
@@ -657,6 +645,7 @@ function showSection(sectionId){
 function hidePrices(){
   document.getElementById("nuts-prices").classList.remove("active");
   document.getElementById("pistachio-prices").classList.remove("active");
+  document.getElementById("seeds-prices").classList.remove("active");
   document.getElementById("products").scrollIntoView({behavior:"smooth"});
 }
 
@@ -785,6 +774,7 @@ function sendOrder(){
 
 renderProducts(nutsProducts, "nutsGrid");
 renderProducts(pistachioProducts, "pistachioGrid");
+renderProducts(seedsProducts, "seedsGrid");
 renderCart();
 </script>
 
