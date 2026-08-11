@@ -1,882 +1,811 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>محامص عمي الحسن | AH</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فواتير محامص عمي الحسن</title>
 
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0B1F33">
+<style>
+*{
+  box-sizing:border-box;
+}
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Tahoma, Arial, sans-serif;
-    }
+body{
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:#0B1F33;
+  color:white;
+}
 
-    body{
-      background:#0B1F33;
-      color:#fff;
-      line-height:1.8;
-      padding-bottom:80px;
-    }
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
+}
 
-    html{
-      scroll-behavior:smooth;
-    }
+h1{
+  text-align:center;
+  color:#D4AF37;
+}
 
-    .btn{
-      display:inline-block;
-      background:#D4AF37;
-      color:#0B1F33;
-      padding:13px 24px;
-      border-radius:40px;
-      text-decoration:none;
-      font-weight:bold;
-      margin:6px;
-      border:none;
-      cursor:pointer;
-      font-size:16px;
-    }
+.card{
+  background:#102A43;
+  padding:15px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
 
-    header{
-      min-height:100vh;
-      background-image:linear-gradient(rgba(7,22,37,0.2), rgba(7,22,37,0.35)), url("IMG_20260702_213950_590.webp");
-      background-size:cover;
-      background-position:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:30px;
-    }
+label{
+  display:block;
+  margin-top:10px;
+  margin-bottom:5px;
+}
 
-    .hero{
-      background:rgba(11,31,51,0.66);
-      padding:30px 20px;
-      border-radius:25px;
-      max-width:850px;
-      border:1px solid rgba(212,175,55,0.35);
-      box-shadow:0 18px 45px rgba(0,0,0,0.45);
-    }
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #D4AF37;
+  background:#0B1F33;
+  color:white;
+  font-size:16px;
+}
 
-    .logo-img{
-      width:170px;
-      height:170px;
-      object-fit:contain;
-      border-radius:50%;
-      border:3px solid #D4AF37;
-      margin:0 auto 18px;
-      display:block;
-      background:rgba(11,31,51,0.75);
-      padding:8px;
-    }
+button{
+  border:0;
+  padding:12px;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
 
-    h1{
-      color:#D4AF37;
-      font-size:44px;
-      margin-bottom:12px;
-      text-shadow:2px 2px 6px rgba(0,0,0,0.8);
-    }
+.gold{
+  background:#D4AF37;
+  color:#0B1F33;
+  font-weight:bold;
+}
 
-    .hero p{
-      font-size:20px;
-      color:#F5E6C8;
-      font-weight:bold;
-      margin-bottom:18px;
-    }
+.blue{
+  background:#244c6d;
+  color:white;
+}
 
-    section{
-      padding:60px 8%;
-    }
+.red{
+  background:#8b1e1e;
+  color:white;
+}
 
-    .section-title{
-      text-align:center;
-      color:#D4AF37;
-      margin-bottom:26px;
-      font-size:32px;
-    }
+.full{
+  width:100%;
+}
 
-    .about{
-      background:#102A43;
-      text-align:center;
-    }
+.item{
+  border-bottom:1px solid #345;
+  padding-bottom:15px;
+  margin-bottom:15px;
+}
 
-    .about p{
-      max-width:850px;
-      margin:auto;
-      color:#F5E6C8;
-      font-size:19px;
-    }
+.total{
+  font-size:22px;
+  color:#D4AF37;
+  font-weight:bold;
+}
 
-    .products{
-      background:#0B1F33;
-    }
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:15px;
+}
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-      max-width:1000px;
-      margin:auto;
-    }
+.invoice{
+  background:white;
+  color:black;
+  padding:20px;
+  display:none;
+}
 
-    .card{
-      background:#102A43;
-      padding:24px;
-      border-radius:18px;
-      text-align:center;
-      border:1px solid rgba(212,175,55,0.55);
-      box-shadow:0 10px 25px rgba(0,0,0,0.25);
-    }
+.invoice table{
+  width:100%;
+  border-collapse:collapse;
+}
 
-    .card-img{
-      width:100%;
-      height:155px;
-      object-fit:cover;
-      border-radius:16px;
-      margin-bottom:14px;
-      border:1px solid rgba(212,175,55,0.45);
-      box-shadow:0 8px 20px rgba(0,0,0,0.25);
-    }
+.invoice th,
+.invoice td{
+  border:1px solid #ccc;
+  padding:8px;
+  text-align:center;
+}
 
-    .card h3{
-      color:#D4AF37;
-      font-size:24px;
-      margin-bottom:10px;
-    }
+.saved{
+  background:#0B1F33;
+  padding:10px;
+  margin-top:8px;
+  border-radius:10px;
+}
 
-    .card p{
-      color:#F5E6C8;
-      font-size:16px;
-      margin-bottom:12px;
-    }
+@media print{
 
-    .prices-section{
-      background:linear-gradient(180deg,#0B1F33,#071827);
-      display:none;
-    }
+  body *{
+    visibility:hidden;
+  }
 
-    .prices-section.active{
-      display:block;
-    }
+  #invoice,
+  #invoice *{
+    visibility:visible;
+  }
 
-    .items-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:18px;
-      max-width:950px;
-      margin:auto;
-    }
+  #invoice{
+    display:block !important;
+    position:absolute;
+    top:0;
+    right:0;
+    width:100%;
+  }
 
-    .item-card{
-      background:linear-gradient(180deg,#12324f,#0d2439);
-      border:1px solid rgba(212,175,55,0.7);
-      padding:13px;
-      border-radius:22px;
-      text-align:center;
-      box-shadow:0 12px 25px rgba(0,0,0,0.32);
-    }
-
-    .item-img{
-      width:100%;
-      height:130px;
-      object-fit:cover;
-      border-radius:14px;
-      border:1px solid rgba(212,175,55,0.35);
-      margin-bottom:10px;
-    }
-
-    .item-card h3{
-      color:#D4AF37;
-      font-size:19px;
-      margin-bottom:8px;
-      min-height:50px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .price{
-      display:inline-block;
-      color:#fff;
-      background:rgba(212,175,55,0.14);
-      border:1px solid rgba(212,175,55,0.35);
-      padding:8px 14px;
-      border-radius:15px;
-      margin:7px 0;
-      font-weight:bold;
-      font-size:18px;
-    }
-
-    .kg-select{
-      width:100%;
-      padding:11px;
-      border-radius:14px;
-      border:1px solid rgba(212,175,55,0.55);
-      background:#0B1F33;
-      color:#fff;
-      margin-top:8px;
-      font-weight:bold;
-      text-align:center;
-      font-size:15px;
-    }
-
-    .add-cart-btn{
-      width:100%;
-      margin-top:10px;
-      padding:12px;
-      border-radius:15px;
-      background:#D4AF37;
-      color:#0B1F33;
-      font-weight:bold;
-      border:none;
-      cursor:pointer;
-      font-size:16px;
-    }
-
-    .back-btn{
-      display:block;
-      width:max-content;
-      margin:0 auto 25px;
-      background:#D4AF37;
-      color:#0B1F33;
-      padding:12px 28px;
-      border-radius:30px;
-      text-decoration:none;
-      font-weight:bold;
-      cursor:pointer;
-      border:none;
-    }
-
-    .candy-gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-      gap:18px;
-      max-width:1000px;
-      margin:auto;
-    }
-
-    .candy-gallery img{
-      width:100%;
-      height:260px;
-      object-fit:cover;
-      border-radius:22px;
-      border:2px solid rgba(212,175,55,0.75);
-      background:#102A43;
-      padding:8px;
-      box-shadow:0 14px 35px rgba(0,0,0,0.35);
-    }
-
-    .branches{
-      background:#102A43;
-    }
-
-    .branch-box{
-      max-width:900px;
-      margin:auto;
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:20px;
-    }
-
-    .branch{
-      background:#0B1F33;
-      padding:25px;
-      border-radius:15px;
-      border-right:5px solid #D4AF37;
-    }
-
-    .branch h3{
-      color:#D4AF37;
-      margin-bottom:8px;
-    }
-
-    .contact{
-      text-align:center;
-      background:#5A3825;
-    }
-
-    .contact p{
-      font-size:20px;
-      color:#F5E6C8;
-      margin-bottom:12px;
-    }
-
-    footer{
-      text-align:center;
-      padding:20px;
-      background:#071625;
-      color:#F5E6C8;
-    }
-
-    #cartToggle{
-      position:fixed;
-      bottom:15px;
-      left:15px;
-      background:#D4AF37;
-      color:#0B1F33;
-      padding:13px 18px;
-      border-radius:40px;
-      font-weight:bold;
-      cursor:pointer;
-      z-index:10000;
-      border:none;
-      box-shadow:0 10px 25px rgba(0,0,0,0.4);
-    }
-
-    #cartCount{
-      background:#0B1F33;
-      color:#fff;
-      padding:2px 8px;
-      border-radius:20px;
-      margin-right:5px;
-      font-size:13px;
-    }
-
-    #cartBox{
-      position:fixed;
-      bottom:72px;
-      left:15px;
-      background:#102A43;
-      border:2px solid #D4AF37;
-      padding:14px;
-      border-radius:18px;
-      width:310px;
-      max-width:calc(100vw - 30px);
-      z-index:9999;
-      display:none;
-      box-shadow:0 18px 45px rgba(0,0,0,0.45);
-    }
-
-    #cartBox h3{
-      color:#D4AF37;
-      margin-bottom:10px;
-      text-align:center;
-    }
-
-    #cartItems{
-      max-height:260px;
-      overflow:auto;
-      margin-bottom:10px;
-    }
-
-    .cart-item{
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(212,175,55,0.25);
-      border-radius:12px;
-      padding:8px;
-      margin-bottom:8px;
-      font-size:13px;
-    }
-
-    .cart-item strong{
-      color:#D4AF37;
-      display:block;
-      margin-bottom:4px;
-    }
-
-    .cart-actions{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:6px;
-      margin-top:6px;
-      flex-wrap:wrap;
-    }
-
-    .cart-actions button{
-      background:#D4AF37;
-      color:#0B1F33;
-      border:none;
-      border-radius:8px;
-      padding:4px 9px;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
-    .remove-btn{
-      background:#8b1e1e !important;
-      color:#fff !important;
-    }
-
-    #cartTotal{
-      margin:10px 0;
-      color:#D4AF37;
-      font-weight:bold;
-      text-align:center;
-      font-size:18px;
-    }
-
-    .cart-main-btn{
-      width:100%;
-      margin-top:7px;
-      padding:11px;
-      border-radius:14px;
-      background:#D4AF37;
-      color:#0B1F33;
-      border:none;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
-    .cart-clear-btn{
-      width:100%;
-      margin-top:7px;
-      padding:10px;
-      border-radius:14px;
-      background:#6b6b6b;
-      color:#fff;
-      border:none;
-      font-weight:bold;
-      cursor:pointer;
-    }
-
-    .toast{
-      position:fixed;
-      top:18px;
-      right:18px;
-      background:#D4AF37;
-      color:#0B1F33;
-      padding:10px 16px;
-      border-radius:14px;
-      font-weight:bold;
-      z-index:20000;
-      display:none;
-      box-shadow:0 12px 25px rgba(0,0,0,0.35);
-    }
-
-    @media(max-width:650px){
-      h1{font-size:34px;}
-      .hero p{font-size:17px;}
-      section{padding:45px 5%;}
-      .items-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-      .item-img{height:115px;}
-      .item-card{padding:10px;}
-      .item-card h3{font-size:16px;min-height:45px;}
-      .price{font-size:16px;}
-      .btn{padding:12px 20px;}
-
-      .card-img{
-        height:135px;
-      }
-
-      .candy-gallery{
-        grid-template-columns:1fr;
-        gap:14px;
-      }
-
-      .candy-gallery img{
-        height:240px;
-        padding:7px;
-        border-radius:18px;
-      }
-
-      #cartBox{
-        left:10px;
-        bottom:70px;
-        width:calc(100vw - 20px);
-      }
-
-      #cartToggle{
-        left:10px;
-        bottom:12px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-<div class="toast" id="toast">تمت الإضافة للسلة ✅</div>
+<div class="container">
 
-<header>
-  <div class="hero">
-    <img class="logo-img" src="file_000000003bf472468f53586d998fb431.png" alt="شعار محامص عمي الحسن" loading="lazy" decoding="async">
-    <h1>محامص عمي الحسن</h1>
-    <p>أجود أنواع المكسرات، الفستق، والبزورات الطازجة بتحميص يومي ونكهة فاخرة.</p>
+<h1>🧾 فواتير محامص عمي الحسن</h1>
 
-    <a class="btn" href="https://wa.me/31637022173" target="_blank">اطلب واتساب</a>
-    <a class="btn" href="#products">شاهد المنتجات</a>
-  </div>
-</header>
+<div class="card">
 
-<section class="about">
-  <h2 class="section-title">من نحن</h2>
-  <p>
-    في محامص عمي الحسن نقدم لكم تشكيلة فاخرة من المكسرات والفستق والبزورات،
-    مع تحميص يومي طازج وجودة عالية تناسب البيت والضيافة والمناسبات.
-  </p>
-</section>
+<label>رقم الفاتورة</label>
+<input id="invoiceNumber">
 
-<section class="products" id="products">
-  <h2 class="section-title">منتجاتنا</h2>
+<label>التاريخ</label>
+<input id="date" type="date">
 
-  <div class="cards">
-    <div class="card">
-      <img class="card-img" src="mixed-nuts-first.jpg" alt="المكسرات" loading="lazy" decoding="async">
-      <h3>المكسرات</h3>
-      <p>كاجو، لوز، جوز، وتشكيلات فاخرة للضيافة.</p>
-      <button class="btn" onclick="showSection('nuts-prices')">شاهد المكسرات</button>
-    </div>
+<label>اسم الزبون</label>
+<input id="customer" placeholder="اسم الزبون">
 
-    <div class="card">
-      <img class="card-img" src="IMG_20260704_224254_287.webp" alt="الفستق" loading="lazy" decoding="async">
-      <h3>الفستق</h3>
-      <p>فستق مالح، مدخن، قضامة، وذرة بنكهات مميزة.</p>
-      <button class="btn" onclick="showSection('pistachio-prices')">شاهد الفستق</button>
-    </div>
+<label>رقم الهاتف</label>
+<input id="phone" placeholder="اختياري">
 
-    <div class="card">
-      <img class="card-img" src="IMG_20260711_123428_171.webp" alt="البزورات" loading="lazy" decoding="async">
-      <h3>البزورات</h3>
-      <p>بزر مصري، صنوبر، كوسا، يقطين وبزورات محمصة يومياً.</p>
-      <button class="btn" onclick="showSection('seeds-prices')">شاهد البزورات</button>
-    </div>
+<label>العملة</label>
 
-    <div class="card">
-      <img class="card-img" src="IMG-20260702-WA0001.jpg" alt="السكاكر" loading="lazy" decoding="async">
-      <h3>السكاكر</h3>
-      <p>سكاكر، جيلاتين، مارشميلو وضيافة للمناسبات.</p>
-      <button class="btn" onclick="showSection('candy-section')">شاهد السكاكر</button>
-    </div>
-  </div>
-</section>
+<select id="currency" onchange="calculate()">
+<option value="€">يورو €</option>
+<option value="$">دولار $</option>
+<option value="ل.س">ليرة سورية</option>
+</select>
 
-<section id="nuts-prices" class="prices-section">
-  <h2 class="section-title">أنواع المكسرات والأسعار</h2>
-  <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
-  <div class="items-grid" id="nutsGrid"></div>
-</section>
-
-<section id="pistachio-prices" class="prices-section">
-  <h2 class="section-title">أنواع الفستق والأسعار</h2>
-  <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
-  <div class="items-grid" id="pistachioGrid"></div>
-</section>
-
-<section id="seeds-prices" class="prices-section">
-  <h2 class="section-title">أنواع البزورات والأسعار</h2>
-  <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
-  <div class="items-grid" id="seedsGrid"></div>
-</section>
-
-<section id="candy-section" class="prices-section">
-  <h2 class="section-title">قسم السكاكر</h2>
-  <button class="back-btn" onclick="hidePrices()">رجوع للخلف</button>
-
-  <div class="candy-gallery">
-    <img src="IMG-20260702-WA0001.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0002.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0003.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0004.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0006.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0008.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0009.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG-20260702-WA0010.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-
-    <img src="IMG_20260210_165741_925.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_212937_766.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_213402_780.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_213445_759.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_213515_082.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-
-    <img src="IMG_2260516_213815_182.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_2260516_213901_043.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_2260516_213948_052.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_2260516_214041_584.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_2260516_214110_316.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_2260516_214151_393.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_2260516_214631_336.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-
-    <img src="IMG_20260211_123226_422.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260211_123257_798.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_213944_182.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_214024_475.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_214217_299.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_215029_612.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="IMG_20260210_215104_429.webp" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-
-    <img src="dc2420a8d187a99170c499f7f9caf76d.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="60fa3d27ed72beedb4a1f48c7b7c38c8.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="722de24788ef8e36c2d60d30e1832215.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="0a278a56573092ba630561940c49fb6e.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="6645ed51a39e8c9167210a26f069b2b5.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="da03a5daff36be79c9ce86673afeae21.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="c45be176832e47623e6fc9e9a116fd35.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="c5a021242367ae408bb61d6160f9cb89.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="b61333ba08f1e2e497b22ef569e1cd52.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="5823c40bd9e4e2f282a1981abc3589f0.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="69b0694413e5683ea391f13087026d51.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-    <img src="d843ea8188c49c11604c98160106e57d.jpg" alt="سكاكر محامص عمي الحسن" loading="lazy" decoding="async">
-  </div>
-</section>
-
-<section class="branches">
-  <h2 class="section-title">فروعنا</h2>
-
-  <div class="branch-box">
-    <div class="branch">
-      <h3>الفرع الأول</h3>
-      <p>جرجناز، مقابل البريد</p>
-    </div>
-
-    <div class="branch">
-      <h3>الفرع الثاني</h3>
-      <p>جنديرس، شارع يلانقوز</p>
-    </div>
-  </div>
-</section>
-
-<section class="contact">
-  <h2 class="section-title">تواصل معنا</h2>
-  <p>للطلب والاستفسار عبر واتساب:</p>
-
-  <p style="font-size:24px;color:#D4AF37;font-weight:bold;">الإدارة</p>
-  <a class="btn" href="https://wa.me/31637022173" target="_blank">+31637022173</a>
-
-  <br><br>
-
-  <p style="font-size:24px;color:#D4AF37;font-weight:bold;">فرع جرجناز</p>
-  <a class="btn" href="https://wa.me/306992330814" target="_blank">+30 699 233 0814</a>
-
-  <br><br>
-
-  <p style="font-size:24px;color:#D4AF37;font-weight:bold;">فرع جنديرس</p>
-  <a class="btn" href="https://wa.me/963998804781" target="_blank">+963 998 804 781</a>
-
-  <br><br>
-
-  <a class="btn" href="https://whatsapp.com/channel/0029VbCOKFa96H4bMSuIiv1c" target="_blank">
-    تابعنا على قناة واتساب
-  </a>
-</section>
-
-<footer>
-  جميع الحقوق محفوظة © محامص عمي الحسن AH
-</footer>
-
-<button id="cartToggle" onclick="toggleCart()">🛒 السلة <span id="cartCount">0</span></button>
-
-<div id="cartBox">
-  <h3>🛒 سلة الطلب</h3>
-  <div id="cartItems"></div>
-  <p id="cartTotal">المجموع: 0$</p>
-
-  <button class="cart-main-btn" onclick="sendOrder()">إرسال الطلب واتساب</button>
-  <button class="cart-clear-btn" onclick="clearCart()">تفريغ السلة</button>
 </div>
 
+
+<div class="card">
+
+<h2>الأصناف</h2>
+
+<div id="items"></div>
+
+<button class="gold full" onclick="addItem()">
++ إضافة صنف
+</button>
+
+</div>
+
+
+<div class="card">
+
+<label>الخصم</label>
+<input id="discount"
+type="number"
+value="0"
+oninput="calculate()">
+
+<label>الضريبة %</label>
+<input id="tax"
+type="number"
+value="0"
+oninput="calculate()">
+
+<hr>
+
+<p>
+المجموع:
+<strong id="subtotal">0</strong>
+</p>
+
+<p>
+الضريبة:
+<strong id="taxAmount">0</strong>
+</p>
+
+<p class="total">
+الإجمالي:
+<span id="total">0</span>
+</p>
+
+<label>ملاحظات</label>
+
+<textarea id="notes"></textarea>
+
+
+<div class="actions">
+
+<button class="gold"
+onclick="saveInvoice()">
+💾 حفظ الفاتورة
+</button>
+
+<button class="blue"
+onclick="printInvoice()">
+🖨️ طباعة / PDF
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>الفواتير المحفوظة</h2>
+
+<div id="savedInvoices"></div>
+
+</div>
+
+
+<div id="invoice" class="invoice"></div>
+
+</div>
+
+
 <script>
-const nutsProducts = [
-  {name:"كاجو نوع أول", price:14.99, img:"cashew-first.jpg"},
-  {name:"كاجو نوع ثاني", price:10.99, img:"cashew-second.jpg"},
-  {name:"لوز نوع أول", price:14.99, img:"almond-first.jpg"},
-  {name:"كاجو مشوي نوع أول", price:14.99, img:"roasted-cashew-first.jpg"},
-  {name:"كاجو فلقة نوع أول", price:11.99, img:"cashew-pieces-first.jpg"},
-  {name:"جوز صيني نوع أول", price:18.99, img:"chinese-walnut-first.jpg"},
-  {name:"جوز بلدي نوع أول", price:9.99, img:"local-walnut-first.jpg"},
-  {name:"لوز بقشر نوع أول", price:7.39, img:"shelled-almond-first.jpg"},
-  {name:"لوز مالح نوع أول", price:14.99, img:"salted-almond-first.jpg"},
-  {name:"تشكيلة نوع ثاني", price:10.59, img:"mixed-nuts-second.jpg"},
-  {name:"تشكيلة نوع أول", price:14.99, img:"mixed-nuts-first.jpg"},
-  {name:"تشكيلة مدخنة نوع أول", price:14.99, img:"smoked-mixed-nuts-first.jpg"}
-];
 
-const pistachioProducts = [
-  {name:"فستق مدخن نوع أول", price:4.25, img:"IMG_20260704_224213_804.webp"},
-  {name:"فستق مالح نوع أول", price:4.25, img:"IMG_20260704_224254_287.webp"},
-  {name:"فستق بدون ملح نوع أول", price:4.25, img:"IMG_20260704_224537_030.webp"},
-  {name:"فستق هندي مدخن نوع أول", price:4.25, img:"IMG_20260704_224605_500.webp"},
-  {name:"قضامة مغبرة نوع أول", price:4.25, img:"IMG_20260704_224718_967.webp"},
-  {name:"قضامة مدخنة نوع أول", price:4.25, img:"IMG_20260704_224742_232.webp"},
-  {name:"ذرة مدخنة نوع أول", price:3.19, img:"IMG_20260704_224628_211.webp"},
-  {name:"ذرة بنكهة الكتشب نوع أول", price:3.19, img:"IMG_20260704_224639_313.webp"}
-];
+let itemNumber=0;
 
-const seedsProducts = [
-  {name:"بزر صنوبر نوع أول", price:4.25, img:"IMG_20260711_123019_366.webp"},
-  {name:"بزر مقشور نوع أول", price:3.20, img:"IMG_20260711_123228_215.webp"},
-  {name:"بزر تركي 601 نوع أول", price:3.20, img:"IMG_20260711_123153_366.webp"},
-  {name:"بزر مصري نوع أول", price:3.20, img:"IMG_20260711_123428_171.webp"},
-  {name:"بزر يقطين نوع أول", price:5.32, img:"IMG_20260711_123545_357.webp"},
-  {name:"بزر كوسا نوع أولل", price:5.32, img:"IMG_20260711_123516_135.webp"}
-];
 
-let cart = JSON.parse(localStorage.getItem("ah_cart")) || [];
+function addItem(){
 
-function renderProducts(products, gridId){
-  const grid = document.getElementById(gridId);
-  grid.innerHTML = "";
+itemNumber++;
 
-  products.forEach(product => {
-    grid.innerHTML += `
-      <div class="item-card" data-name="${product.name}" data-price="${product.price}">
-        <img class="item-img" src="${product.img}" alt="${product.name}" loading="lazy" decoding="async">
-        <h3>${product.name}</h3>
-        <p class="price">${product.price}$ / كغ</p>
+let div=document.createElement("div");
 
-        <select class="kg-select">
-          <option value="0.5">نصف كيلو</option>
-          <option value="1" selected>1 كيلو</option>
-          <option value="1.5">1.5 كيلو</option>
-          <option value="2">2 كيلو</option>
-          <option value="3">3 كيلو</option>
-        </select>
+div.className="item";
 
-        <button class="add-cart-btn" onclick="addProduct(this)">أضف للسلة</button>
-      </div>
-    `;
-  });
+div.innerHTML=`
+
+<label>اسم الصنف</label>
+
+<input
+class="itemName"
+placeholder="مثال: قهوة">
+
+<label>الكمية</label>
+
+<input
+class="qty"
+type="number"
+value="1"
+oninput="calculate()">
+
+<label>السعر</label>
+
+<input
+class="price"
+type="number"
+value="0"
+oninput="calculate()">
+
+<br><br>
+
+<button
+class="red"
+onclick="this.parentElement.remove();calculate()">
+
+حذف الصنف
+
+</button>
+
+`;
+
+document.getElementById("items").appendChild(div);
+
+calculate();
+
 }
 
-function showSection(sectionId){
-  document.getElementById("nuts-prices").classList.remove("active");
-  document.getElementById("pistachio-prices").classList.remove("active");
-  document.getElementById("seeds-prices").classList.remove("active");
-  document.getElementById("candy-section").classList.remove("active");
 
-  document.getElementById(sectionId).classList.add("active");
-  document.getElementById(sectionId).scrollIntoView({behavior:"smooth"});
+function getItems(){
+
+let items=[];
+
+document.querySelectorAll(".item").forEach(function(row){
+
+let name=row.querySelector(".itemName").value;
+
+let qty=
+Number(row.querySelector(".qty").value);
+
+let price=
+Number(row.querySelector(".price").value);
+
+if(name || price){
+
+items.push({
+name:name,
+qty:qty,
+price:price
+});
+
 }
 
-function hidePrices(){
-  document.getElementById("nuts-prices").classList.remove("active");
-  document.getElementById("pistachio-prices").classList.remove("active");
-  document.getElementById("seeds-prices").classList.remove("active");
-  document.getElementById("candy-section").classList.remove("active");
-  document.getElementById("products").scrollIntoView({behavior:"smooth"});
+});
+
+return items;
+
 }
 
-function saveCart(){
-  localStorage.setItem("ah_cart", JSON.stringify(cart));
+
+function calculate(){
+
+let subtotal=0;
+
+getItems().forEach(function(item){
+
+subtotal+=item.qty*item.price;
+
+});
+
+let discount=
+Number(document.getElementById("discount").value)||0;
+
+let tax=
+Number(document.getElementById("tax").value)||0;
+
+let afterDiscount=
+Math.max(0,subtotal-discount);
+
+let taxAmount=
+afterDiscount*(tax/100);
+
+let total=
+afterDiscount+taxAmount;
+
+let currency=
+document.getElementById("currency").value;
+
+document.getElementById("subtotal").innerText=
+subtotal.toFixed(2)+" "+currency;
+
+document.getElementById("taxAmount").innerText=
+taxAmount.toFixed(2)+" "+currency;
+
+document.getElementById("total").innerText=
+total.toFixed(2)+" "+currency;
+
+return{
+subtotal,
+discount,
+tax,
+taxAmount,
+total
+};
+
 }
 
-function toggleCart(){
-  const box = document.getElementById("cartBox");
-  box.style.display = box.style.display === "block" ? "none" : "block";
+
+function invoiceData(){
+
+let totals=calculate();
+
+return{
+
+number:
+document.getElementById("invoiceNumber").value,
+
+date:
+document.getElementById("date").value,
+
+customer:
+document.getElementById("customer").value,
+
+phone:
+document.getElementById("phone").value,
+
+currency:
+document.getElementById("currency").value,
+
+notes:
+document.getElementById("notes").value,
+
+items:getItems(),
+
+...totals
+
+};
+
 }
 
-function showToast(){
-  const toast = document.getElementById("toast");
-  toast.style.display = "block";
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 1400);
+
+function saveInvoice(){
+
+let invoice=invoiceData();
+
+if(!invoice.customer){
+
+alert("اكتب اسم الزبون");
+
+return;
+
 }
 
-function addProduct(button){
-  const card = button.closest(".item-card");
-  const name = card.dataset.name;
-  const price = parseFloat(card.dataset.price);
-  const kg = parseFloat(card.querySelector(".kg-select").value);
+if(invoice.items.length===0){
 
-  const key = name + "-" + kg;
-  const existing = cart.find(item => item.key === key);
+alert("أضف صنف واحد على الأقل");
 
-  if(existing){
-    existing.count += 1;
-  } else {
-    cart.push({
-      key: key,
-      name: name,
-      price: price,
-      kg: kg,
-      count: 1
-    });
-  }
+return;
 
-  saveCart();
-  renderCart();
-  showToast();
 }
 
-function changeCount(index, amount){
-  cart[index].count += amount;
+let invoices=
+JSON.parse(
+localStorage.getItem("invoices") || "[]"
+);
 
-  if(cart[index].count <= 0){
-    cart.splice(index, 1);
-  }
+let existing=
+invoices.findIndex(
+x=>x.number===invoice.number
+);
 
-  saveCart();
-  renderCart();
+if(existing>=0){
+
+invoices[existing]=invoice;
+
+}else{
+
+invoices.unshift(invoice);
+
 }
 
-function removeItem(index){
-  cart.splice(index, 1);
-  saveCart();
-  renderCart();
+localStorage.setItem(
+"invoices",
+JSON.stringify(invoices)
+);
+
+showSaved();
+
+alert("تم حفظ الفاتورة ✅");
+
 }
 
-function renderCart(){
-  const cartItems = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  const cartCount = document.getElementById("cartCount");
 
-  cartItems.innerHTML = "";
+function showSaved(){
 
-  let total = 0;
-  let countTotal = 0;
+let invoices=
+JSON.parse(
+localStorage.getItem("invoices") || "[]"
+);
 
-  cart.forEach((item, index) => {
-    const itemTotal = item.price * item.kg * item.count;
-    total += itemTotal;
-    countTotal += item.count;
+let box=
+document.getElementById("savedInvoices");
 
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <strong>${item.name}</strong>
-        الوزن: ${item.kg} كغ × العدد: ${item.count}<br>
-        السعر: ${itemTotal.toFixed(2)}$
-        <div class="cart-actions">
-          <button onclick="changeCount(${index}, 1)">+</button>
-          <button onclick="changeCount(${index}, -1)">-</button>
-          <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
-        </div>
-      </div>
-    `;
-  });
+box.innerHTML="";
 
-  cartTotal.innerText = "المجموع: " + total.toFixed(2) + "$";
-  cartCount.innerText = countTotal;
+if(invoices.length===0){
+
+box.innerHTML="لا توجد فواتير محفوظة";
+
+return;
+
 }
 
-function clearCart(){
-  cart = [];
-  saveCart();
-  renderCart();
+invoices.forEach(function(inv,index){
+
+let div=
+document.createElement("div");
+
+div.className="saved";
+
+div.innerHTML=`
+
+<strong>
+${inv.number}
+</strong>
+
+<br>
+
+${inv.customer}
+
+<br>
+
+${inv.total.toFixed(2)}
+${inv.currency}
+
+<br><br>
+
+<button
+class="blue"
+onclick="loadInvoice(${index})">
+
+فتح
+
+</button>
+
+<button
+class="red"
+onclick="deleteInvoice(${index})">
+
+حذف
+
+</button>
+
+`;
+
+box.appendChild(div);
+
+});
+
 }
 
-function sendOrder(){
-  if(cart.length === 0){
-    alert("السلة فارغة");
-    return;
-  }
 
-  let total = 0;
-  let msg = "طلب جديد من موقع محامص عمي الحسن:%0A%0A";
+function loadInvoice(index){
 
-  cart.forEach(item => {
-    const itemTotal = item.price * item.kg * item.count;
-    total += itemTotal;
+let invoices=
+JSON.parse(
+localStorage.getItem("invoices") || "[]"
+);
 
-    msg += "- " + item.name + "%0A";
-    msg += "الوزن: " + item.kg + " كغ%0A";
-    msg += "العدد: " + item.count + "%0A";
-    msg += "السعر: " + itemTotal.toFixed(2) + "$%0A%0A";
-  });
+let inv=invoices[index];
 
-  msg += "المجموع الكلي: " + total.toFixed(2) + "$";
+document.getElementById("invoiceNumber").value=
+inv.number;
 
-  window.open("https://wa.me/31637022173?text=" + msg, "_blank");
+document.getElementById("date").value=
+inv.date;
+
+document.getElementById("customer").value=
+inv.customer;
+
+document.getElementById("phone").value=
+inv.phone;
+
+document.getElementById("currency").value=
+inv.currency;
+
+document.getElementById("discount").value=
+inv.discount;
+
+document.getElementById("tax").value=
+inv.tax;
+
+document.getElementById("notes").value=
+inv.notes;
+
+document.getElementById("items").innerHTML="";
+
+inv.items.forEach(function(item){
+
+addItem();
+
+let rows=
+document.querySelectorAll(".item");
+
+let row=
+rows[rows.length-1];
+
+row.querySelector(".itemName").value=
+item.name;
+
+row.querySelector(".qty").value=
+item.qty;
+
+row.querySelector(".price").value=
+item.price;
+
+});
+
+calculate();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
 }
 
-renderProducts(nutsProducts, "nutsGrid");
-renderProducts(pistachioProducts, "pistachioGrid");
-renderProducts(seedsProducts, "seedsGrid");
-renderCart();
+
+function deleteInvoice(index){
+
+if(!confirm("هل تريد حذف الفاتورة؟"))
+return;
+
+let invoices=
+JSON.parse(
+localStorage.getItem("invoices") || "[]"
+);
+
+invoices.splice(index,1);
+
+localStorage.setItem(
+"invoices",
+JSON.stringify(invoices)
+);
+
+showSaved();
+
+}
+
+
+function buildInvoice(){
+
+let inv=invoiceData();
+
+let rows="";
+
+inv.items.forEach(function(item,index){
+
+rows+=`
+
+<tr>
+
+<td>${index+1}</td>
+
+<td>${item.name}</td>
+
+<td>${item.qty}</td>
+
+<td>
+${item.price.toFixed(2)}
+${inv.currency}
+</td>
+
+<td>
+${(item.qty*item.price).toFixed(2)}
+${inv.currency}
+</td>
+
+</tr>
+
+`;
+
+});
+
+
+document.getElementById("invoice").innerHTML=`
+
+<h1 style="color:black">
+محامص عمي الحسن
+</h1>
+
+<h2>
+فاتورة مبيعات
+</h2>
+
+<p>
+<strong>
+رقم الفاتورة:
+</strong>
+
+${inv.number}
+</p>
+
+<p>
+<strong>
+التاريخ:
+</strong>
+
+${inv.date}
+</p>
+
+<p>
+<strong>
+الزبون:
+</strong>
+
+${inv.customer}
+</p>
+
+<p>
+<strong>
+الهاتف:
+</strong>
+
+${inv.phone || "-"}
+</p>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>الصنف</th>
+
+<th>الكمية</th>
+
+<th>السعر</th>
+
+<th>المجموع</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${rows}
+
+</tbody>
+
+</table>
+
+
+<br>
+
+<p>
+المجموع:
+${inv.subtotal.toFixed(2)}
+${inv.currency}
+</p>
+
+<p>
+الخصم:
+${inv.discount.toFixed(2)}
+${inv.currency}
+</p>
+
+<p>
+الضريبة:
+${inv.taxAmount.toFixed(2)}
+${inv.currency}
+</p>
+
+<h2>
+الإجمالي:
+${inv.total.toFixed(2)}
+${inv.currency}
+</h2>
+
+<p>
+${inv.notes}
+</p>
+
+`;
+
+}
+
+
+function printInvoice(){
+
+buildInvoice();
+
+document.getElementById("invoice").style.display=
+"block";
+
+window.print();
+
+}
+
+
+function newInvoice(){
+
+document.getElementById("invoiceNumber").value=
+"AH-"+Date.now().toString().slice(-6);
+
+document.getElementById("date").value=
+new Date().toISOString().split("T")[0];
+
+}
+
+
+newInvoice();
+
+addItem();
+
+showSaved();
+
 </script>
 
 </body>
