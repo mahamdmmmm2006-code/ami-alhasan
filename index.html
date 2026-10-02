@@ -840,6 +840,55 @@
         align-items: center;
         gap: 15px;
       }
+      .formal-nuts {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-width: 108px;
+        direction: ltr;
+      }
+      .formal-nut {
+        position: relative;
+        display: block;
+        width: 25px;
+        height: 17px;
+        border: 1.5px solid #ad8845;
+        box-shadow: 0 2px 5px rgba(93, 65, 21, 0.18);
+      }
+      .formal-nut::after {
+        content: "";
+        position: absolute;
+        inset: 3px 6px;
+        border-top: 1px solid rgba(255, 246, 214, 0.75);
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+      .formal-nut-almond {
+        border-radius: 68% 32% 65% 35%;
+        background: linear-gradient(135deg, #f2d29a, #b78037);
+        transform: rotate(-28deg);
+      }
+      .formal-nut-cashew {
+        width: 29px;
+        height: 22px;
+        border: 4px solid #c58b42;
+        border-left-color: transparent;
+        border-bottom-color: #dbab61;
+        border-radius: 50%;
+        transform: rotate(18deg);
+      }
+      .formal-nut-cashew::after {
+        display: none;
+      }
+      .formal-nut-pistachio {
+        width: 24px;
+        height: 18px;
+        border-radius: 60% 40% 55% 45%;
+        background: linear-gradient(135deg, #d6dd9b, #879247);
+        border-color: #75813c;
+        transform: rotate(-12deg);
+      }
       .formal-brand {
         display: flex;
         gap: 14px;
@@ -1040,6 +1089,11 @@
         .formal-head {
           padding: 17px 0;
           gap: 8px;
+        }
+        .formal-nuts {
+          gap: 3px;
+          min-width: 70px;
+          transform: scale(0.72);
         }
         .formal-brand {
           gap: 7px;
@@ -2592,6 +2646,7 @@
         $("preview").innerHTML = `
     <div class="formal-head">
       <div class="formal-brand"><div class="formal-logo">AH</div><div><h2>محامص عمي الحسن</h2><p>عالم الموالح والمكسرات</p></div></div>
+      <div class="formal-nuts" aria-label="لوز وكاجو وفستق حلبي"><i class="formal-nut formal-nut-almond"></i><i class="formal-nut formal-nut-cashew"></i><i class="formal-nut formal-nut-pistachio"></i></div>
       <div class="formal-title"><h1>فاتورة مبيعات</h1><span>SALES INVOICE</span><b dir="ltr">${esc(i.no)}</b></div>
     </div>
     <div class="formal-registration">الرقم الضريبي: <b>906</b><span>|</span>السجل التجاري: <b>19236</b></div>
@@ -2603,7 +2658,7 @@
     </div>
     <table class="formal-table"><colgroup><col style="width:6%"><col style="width:35%"><col style="width:12%"><col style="width:11%"><col style="width:17%"><col style="width:19%"></colgroup><thead><tr><th>م</th><th>الصنف / البيان</th><th>الكمية</th><th>الوحدة</th><th>سعر الوحدة*</th><th>الإجمالي</th></tr></thead><tbody>${i.items.map((x, n) => `<tr><td>${n + 1}</td><td>${esc(x.name)}</td><td>${esc(x.qty)}</td><td>${esc(unit(x))}</td><td>${money(x.price)}</td><td>${money(lineTotal(x))}</td></tr>`).join("")}</tbody></table>
     <div class="formal-table-note">* السعر لكل كيلوغرام عند البيع بالكغ أو الغرام، ولكل قطعة عند البيع بالقطعة. جميع المبالغ بالعملة: ${esc(i.currency)}</div>
-    ${fxEnabled(i) ? `<div class="fx-receipt-rate">سعر الصرف: 1 $ = ${fxRate(i)} ل.س</div>` : ""}<div class="formal-bottom"><div class="formal-notes"><span class="formal-caption">ملاحظات الفاتورة</span><p>${esc(i.notes || "—")}</p><div class="formal-payment">${dueOf(i) > 0 ? "متبقي للدفع: " + esc(dualMoney(dueOf(i), i)) : "مسددة بالكامل"}</div>${(i.payments || []).length ? '<p class="formal-history">الدفعات المسجلة<br>' + i.payments.map((p) => esc(p.date.slice(0, 10)) + " — " + esc(money(p.amount, i.currency))).join("<br>") + "</p>" : ""}</div><div class="formal-totals">${invoiceLines(
+<div class="formal-bottom"><div class="formal-notes"><span class="formal-caption">ملاحظات الفاتورة</span><p>${esc(i.notes || "—")}</p><div class="formal-payment">${dueOf(i) > 0 ? "متبقي للدفع: " + esc(dualMoney(dueOf(i), i)) : "مسددة بالكامل"}</div>${(i.payments || []).length ? '<p class="formal-history">الدفعات المسجلة<br>' + i.payments.map((p) => esc(p.date.slice(0, 10)) + " — " + esc(money(p.amount, i.currency))).join("<br>") + "</p>" : ""}</div><div class="formal-totals">${invoiceLines(
       i,
     )
       .map(
@@ -2713,6 +2768,31 @@
         text("AH", 1110, 165, 48, false, gold, "center", true);
         text("محامص عمي الحسن", 1018, 146, 37, true);
         text("عالم الموالح والمكسرات", 1018, 194, 25, false, muted);
+        function nutOval(cx, cy, rx, ry, fillColor, strokeColor, rotation = 0) {
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(rotation);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+          ctx.fillStyle = fillColor;
+          ctx.fill();
+          ctx.strokeStyle = strokeColor;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        }
+        nutOval(615, 136, 28, 14, "#e2bb76", gold, -0.35);
+        nutOval(665, 138, 25, 16, "#b9c27a", "#879247", 0.15);
+        ctx.save();
+        ctx.translate(565, 138);
+        ctx.rotate(0.25);
+        ctx.beginPath();
+        ctx.arc(0, 0, 17, Math.PI * 0.28, Math.PI * 1.7);
+        ctx.strokeStyle = "#c58b42";
+        ctx.lineWidth = 8;
+        ctx.lineCap = "round";
+        ctx.stroke();
+        ctx.restore();
         text("فاتورة مبيعات", L, 130, 37, true, ink, "left");
         text("SALES INVOICE", L, 172, 16, false, muted, "left");
         text(i.no, L, 216, 23, true, gold, "left");
@@ -2786,8 +2866,6 @@
             text(s, R, noteY, 23);
           });
         }
-        if (fxEnabled(i))
-          text("سعر الصرف: 1 $ = " + fxRate(i) + " ل.س", L, summaryY - 12, 21, false, muted, "left");
         const tw = 520;
         const totalRowH = fxEnabled(i) ? 88 : 57;
         invoiceLines(i).forEach(([label, n], idx) => {
