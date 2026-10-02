@@ -823,6 +823,362 @@
           color: #111;
         }
       }
+      /* Formal sales invoice; the same hierarchy is used in the image renderer. */
+      .invoice-preview {
+        border-radius: 4px;
+        padding: 32px 26px;
+        min-height: 880px;
+        border: 1px solid #e0e1dc;
+        background: #fff;
+        color: #252a2d;
+      }
+      .formal-head {
+        border-top: 5px solid #ad8845;
+        padding: 25px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+      }
+      .formal-brand {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+      }
+      .formal-brand h2 {
+        font-size: 22px;
+        margin: 0 0 9px;
+      }
+      .formal-brand p {
+        font-size: 12px;
+        margin: 0;
+        color: #707579;
+      }
+      .formal-logo {
+        font:
+          37px Georgia,
+          serif;
+        border: 1.5px solid #ad8845;
+        color: #ad8845;
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        direction: ltr;
+      }
+      .formal-title {
+        text-align: left;
+        flex-shrink: 0;
+      }
+      .formal-title h1 {
+        font-size: 22px;
+        margin: 0 0 6px;
+      }
+      .formal-title span {
+        font-size: 9px;
+        color: #707579;
+        letter-spacing: 1.6px;
+        display: block;
+      }
+      .formal-title b {
+        display: block;
+        color: #ad8845;
+        margin-top: 10px;
+        font-size: 13px;
+      }
+      .formal-registration {
+        background: #f5f3ee;
+        text-align: center;
+        padding: 12px;
+        font-size: 12px;
+      }
+      .formal-registration span {
+        margin: 0 15px;
+        color: #b9b9b3;
+      }
+      .formal-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px 12px;
+        margin: 22px 0;
+      }
+      .formal-details > div {
+        background: #fafbf9;
+        border-top: 1px solid #dcdedc;
+        padding: 12px 14px;
+        min-width: 0;
+      }
+      .formal-details span {
+        display: block;
+        color: #707579;
+        font-size: 11px;
+        margin-bottom: 8px;
+      }
+      .formal-details strong {
+        display: block;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+      }
+      .invoice-preview .formal-table {
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+      }
+      .invoice-preview .formal-table th {
+        background: #252a2d;
+        color: #fff;
+        border: 1px solid #252a2d;
+        padding: 12px 4px;
+        font-size: 11px;
+        width: auto;
+      }
+      .invoice-preview .formal-table td {
+        font-size: 12px;
+        padding: 14px 7px;
+        border: 1px solid #dcdedc;
+        font-weight: 400;
+      }
+      .invoice-preview .formal-table td:nth-child(2) {
+        text-align: right;
+        font-weight: bold;
+      }
+      .formal-table tr:nth-child(even) {
+        background: #f7f8f5;
+      }
+      .formal-table-note {
+        font-size: 9px;
+        color: #707579;
+        line-height: 1.8;
+        margin-top: 9px;
+      }
+      .formal-bottom {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        margin: 25px 0;
+      }
+      .formal-notes {
+        font-size: 12px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+      }
+      .formal-notes p {
+        white-space: pre-wrap;
+      }
+      .formal-caption {
+        color: #ad8845;
+        font-weight: bold;
+      }
+      .formal-payment {
+        margin-top: 18px;
+        font-weight: bold;
+        color: #806332;
+      }
+      .formal-history {
+        font-size: 10px;
+        color: #707579;
+      }
+      .formal-totals > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-bottom: 1px solid #e6e7e3;
+        padding: 12px;
+        background: #fafbf9;
+        font-size: 12px;
+      }
+      .formal-totals .formal-grand {
+        background: #252a2d;
+        color: #fff;
+      }
+      .formal-grand b {
+        color: #e5c17a;
+      }
+      .formal-totals .formal-due {
+        background: #f4eddf;
+        font-weight: bold;
+      }
+      .formal-signatures {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        text-align: center;
+        margin: 60px 0 30px;
+        font-size: 12px;
+        color: #707579;
+        break-inside: avoid;
+      }
+      .formal-signatures i {
+        display: block;
+        border-bottom: 1px solid #dcdedc;
+        margin-top: 38px;
+      }
+      .formal-footer {
+        border-top: 2px solid #ad8845;
+        padding-top: 14px;
+        text-align: center;
+      }
+      .formal-footer strong {
+        display: block;
+        color: #ad8845;
+        font-size: 14px;
+      }
+      .formal-footer span {
+        display: block;
+        color: #707579;
+        font-size: 10px;
+        margin-top: 8px;
+      }
+      @media (max-width: 600px) {
+        .invoice-preview {
+          padding: 18px 12px;
+          min-height: 650px;
+        }
+        .formal-head {
+          padding: 17px 0;
+          gap: 8px;
+        }
+        .formal-brand {
+          gap: 7px;
+        }
+        .formal-logo {
+          width: 42px;
+          height: 42px;
+          font-size: 24px;
+        }
+        .formal-brand h2 {
+          font-size: 13px;
+        }
+        .formal-brand p {
+          font-size: 8px;
+        }
+        .formal-title h1 {
+          font-size: 15px;
+        }
+        .formal-title span {
+          font-size: 7px;
+          letter-spacing: 0.8px;
+        }
+        .formal-title b {
+          font-size: 10px;
+        }
+        .formal-registration {
+          font-size: 10px;
+          padding: 10px 4px;
+        }
+        .formal-registration span {
+          margin: 0 6px;
+        }
+        .formal-details {
+          gap: 6px;
+          margin: 16px 0;
+        }
+        .formal-details > div {
+          padding: 9px;
+        }
+        .formal-details strong {
+          font-size: 11px;
+        }
+        .formal-details span {
+          font-size: 9px;
+        }
+        .invoice-preview .formal-table th {
+          font-size: 9px;
+          padding: 10px 2px;
+        }
+        .invoice-preview .formal-table td {
+          font-size: 10px;
+          padding: 11px 3px;
+        }
+        .formal-table-note {
+          font-size: 8px;
+        }
+        .formal-bottom {
+          gap: 12px;
+          margin: 18px 0;
+          grid-template-columns: 0.85fr 1.15fr;
+        }
+        .formal-totals > div {
+          font-size: 10px;
+          padding: 10px 7px;
+          gap: 5px;
+        }
+        .formal-notes {
+          font-size: 10px;
+        }
+        .formal-signatures {
+          font-size: 10px;
+          gap: 18px;
+          margin-top: 45px;
+        }
+        .formal-footer strong {
+          font-size: 12px;
+        }
+        .formal-footer span {
+          font-size: 9px;
+        }
+      }
+      @media print {
+        .invoice-preview {
+          padding: 6mm;
+          border: 0;
+          min-height: 250mm;
+        }
+        .formal-head {
+          padding: 6mm 0;
+          border-top-width: 1.2mm;
+        }
+        .formal-brand h2 {
+          font-size: 19pt;
+        }
+        .formal-logo {
+          width: 18mm;
+          height: 18mm;
+          font-size: 30pt;
+        }
+        .formal-title h1 {
+          font-size: 19pt;
+        }
+        .formal-registration {
+          font-size: 10pt;
+        }
+        .formal-details strong {
+          font-size: 11pt;
+        }
+        .invoice-preview .formal-table th,
+        .invoice-preview .formal-table td {
+          font-size: 10pt;
+          padding: 3mm 2mm;
+        }
+        .formal-bottom {
+          break-inside: avoid;
+        }
+        .formal-head,
+        .formal-details {
+          break-inside: avoid;
+        }
+        .formal-totals > div {
+          font-size: 10pt;
+        }
+        .formal-signatures {
+          margin-top: 16mm;
+        }
+        .formal-table th,
+        .formal-grand {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        thead {
+          display: table-header-group;
+        }
+        @page {
+          size: A4;
+          margin: 10mm;
+        }
+      }
     </style>
   </head>
 
@@ -2138,17 +2494,31 @@
       }
       function buildPreview(i) {
         currentPreviewInvoice = i;
-        $("preview").innerHTML =
-          `<div class="invoice-brand"><div class="ah-logo">AH</div><h2>محامص عمي الحسن</h2><p>عالم الموالح والمكسرات</p><strong>الرقم الضريبي: 906 | السجل التجاري: 19236</strong></div><h2>فاتورة مبيعات</h2><p>رقم: ${esc(i.no)} · التاريخ: ${esc(i.date)}</p><p>العميل: ${esc(i.customer)} · ${esc(i.phone || "")}</p><p>الفرع: ${esc(i.branch || branches[0])} · العملة: ${esc(i.currency)}</p><table><thead><tr><th>الصنف</th><th>الكمية</th><th>الوحدة</th><th>السعر / قطعة أو كغ</th><th>الإجمالي</th></tr></thead><tbody>${i.items.map((x) => `<tr><td>${esc(x.name)}</td><td>${esc(x.qty)}</td><td>${esc(x.unit || "قطعة")}</td><td>${money(x.price)}</td><td>${money(lineTotal(x))}</td></tr>`).join("")}</tbody></table><div class="receipt-totals">${invoiceLines(
-            i,
-          )
-            .map(
-              ([label, n]) =>
-                `<div class="total-line"><span>${label}</span><strong>${esc(money(n, i.currency))}</strong></div>`,
-            )
-            .join(
-              "",
-            )}</div><p style="white-space:pre-wrap">${esc(i.notes || "")}</p>${(i.payments || []).length ? "<p>الدفعات المسجلة: " + i.payments.map((p) => esc(p.date.slice(0, 10)) + " — " + esc(money(p.amount, i.currency))).join(" / ") + "</p>" : ""}<div class="signatures"><span>توقيع البائع</span><span>توقيع العميل</span></div><p class="thanks">شكراً لتعاملكم معنا</p>`;
+        const unit = (x) => x.unit || "قطعة";
+        $("preview").innerHTML = `
+    <div class="formal-head">
+      <div class="formal-brand"><div class="formal-logo">AH</div><div><h2>محامص عمي الحسن</h2><p>عالم الموالح والمكسرات</p></div></div>
+      <div class="formal-title"><h1>فاتورة مبيعات</h1><span>SALES INVOICE</span><b dir="ltr">${esc(i.no)}</b></div>
+    </div>
+    <div class="formal-registration">الرقم الضريبي: <b>906</b><span>|</span>السجل التجاري: <b>19236</b></div>
+    <div class="formal-details">
+      <div><span>اسم العميل</span><strong>${esc(i.customer)}</strong></div>
+      <div><span>تاريخ الفاتورة</span><strong>${esc(i.date)}</strong></div>
+      <div><span>رقم الهاتف</span><strong dir="ltr">${esc(i.phone || "—")}</strong></div>
+      <div><span>الفرع / العملة</span><strong>${esc(i.branch || branches[0])} · ${esc(i.currency)}</strong></div>
+    </div>
+    <table class="formal-table"><colgroup><col style="width:6%"><col style="width:35%"><col style="width:12%"><col style="width:11%"><col style="width:17%"><col style="width:19%"></colgroup><thead><tr><th>م</th><th>الصنف / البيان</th><th>الكمية</th><th>الوحدة</th><th>سعر الوحدة*</th><th>الإجمالي</th></tr></thead><tbody>${i.items.map((x, n) => `<tr><td>${n + 1}</td><td>${esc(x.name)}</td><td>${esc(x.qty)}</td><td>${esc(unit(x))}</td><td>${money(x.price)}</td><td>${money(lineTotal(x))}</td></tr>`).join("")}</tbody></table>
+    <div class="formal-table-note">* السعر لكل كيلوغرام عند البيع بالكغ أو الغرام، ولكل قطعة عند البيع بالقطعة. جميع المبالغ بالعملة: ${esc(i.currency)}</div>
+    <div class="formal-bottom"><div class="formal-notes"><span class="formal-caption">ملاحظات الفاتورة</span><p>${esc(i.notes || "—")}</p><div class="formal-payment">${dueOf(i) > 0 ? "متبقي للدفع: " + esc(money(dueOf(i), i.currency)) : "مسددة بالكامل"}</div>${(i.payments || []).length ? '<p class="formal-history">الدفعات المسجلة<br>' + i.payments.map((p) => esc(p.date.slice(0, 10)) + " — " + esc(money(p.amount, i.currency))).join("<br>") + "</p>" : ""}</div><div class="formal-totals">${invoiceLines(
+      i,
+    )
+      .map(
+        ([label, n], idx) =>
+          `<div class="${idx === 3 ? "formal-grand" : idx === 5 ? "formal-due" : ""}"><span>${label}</span><b>${esc(money(n, i.currency))}</b></div>`,
+      )
+      .join("")}</div></div>
+    <div class="formal-signatures"><div><span>توقيع البائع</span><i></i></div><div><span>توقيع العميل</span><i></i></div><div><span>الختم</span><i></i></div></div>
+    <div class="formal-footer"><strong>شكراً لتعاملكم معنا</strong><span>محامص عمي الحسن · عالم الموالح والمكسرات</span></div>`;
       }
       function previewCurrent() {
         const i = invoiceData();
@@ -2160,76 +2530,182 @@
       function invoiceCanvas(i) {
         const canvas = document.createElement("canvas"),
           ctx = canvas.getContext("2d");
-        canvas.width = 1240;
-        const maxWidth = 1080;
-        function wrap(s, size = 27) {
-          ctx.font = size + "px Arial";
-          const result = [];
-          String(s || "")
+        const W = 1240,
+          L = 70,
+          R = 1170,
+          D = 1100,
+          gold = "#ad8845",
+          ink = "#252a2d",
+          muted = "#707579",
+          border = "#dcdedc";
+        canvas.width = W;
+        function font(size = 25, bold = false, serif = false) {
+          ctx.font = (bold ? "bold " : "") + size + "px " + (serif ? "Georgia" : "Arial");
+        }
+        function wrap(value, max, size = 25, bold = false) {
+          font(size, bold);
+          const out = [];
+          String(value ?? "")
             .split("\n")
-            .forEach((para) => {
+            .forEach((p) => {
               let line = "";
-              for (const char of para) {
-                if (ctx.measureText(line + char).width > maxWidth) {
-                  result.push(line);
-                  line = char;
-                } else line += char;
+              for (const ch of p) {
+                if (ctx.measureText(line + ch).width > max && line) {
+                  out.push(line);
+                  line = ch;
+                } else line += ch;
               }
-              result.push(line);
+              out.push(line);
             });
-          return result;
+          return out;
         }
-        const rows = i.items.map((x) => ({ x, lines: wrap(x.name, 28) }));
-        const noteLines = wrap(i.notes);
-        canvas.height =
-          900 +
-          rows.reduce((s, r) => s + 70 + r.lines.length * 36, 0) +
-          noteLines.length * 50 +
-          wrap("العميل: " + i.customer + " | " + (i.phone || "")).length * 48 +
-          (i.payments || []).length * 48;
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.direction = "rtl";
-        ctx.textAlign = "right";
-        let y = 80;
-        function text(s, size = 28, color = "#25221b", center = false) {
-          ctx.font = "bold " + size + "px Arial";
-          ctx.fillStyle = color;
-          ctx.textAlign = center ? "center" : "right";
-          ctx.fillText(String(s), center ? 620 : 1160, y);
-          y += size + 18;
-        }
-        text("AH", 76, "#a67c28", true);
-        text("محامص عمي الحسن", 38, "#25221b", true);
-        text("عالم الموالح والمكسرات", 26, "#776443", true);
-        text("الرقم الضريبي: 906 | السجل التجاري: 19236", 27, "#25221b", true);
-        y += 18;
-        text("فاتورة مبيعات — " + i.no);
-        text("التاريخ: " + i.date + " | الفرع: " + (i.branch || branches[0]));
-        wrap("العميل: " + i.customer + " | " + (i.phone || "")).forEach((l) => text(l));
-        text("العملة: " + i.currency);
-        for (const r of rows) {
-          ctx.fillStyle = "#f5f1e8";
-          ctx.fillRect(50, y - 25, 1140, 55 + r.lines.length * 36);
-          r.lines.forEach((l) => text(l, 28));
-          text(
-            r.x.qty +
-              " " +
-              (r.x.unit || "قطعة") +
-              " × " +
-              money(r.x.price) +
-              " / قطعة أو كغ = " +
-              money(lineTotal(r.x), i.currency),
-            25,
+        const widths = [65, 385, 130, 125, 185, 210];
+        const rows = i.items.map((x, n) => {
+          const cells = [
+            String(n + 1),
+            x.name,
+            String(x.qty),
+            x.unit || "قطعة",
+            money(x.price),
+            money(lineTotal(x)),
+          ];
+          const lines = cells.map((c, k) => wrap(c, widths[k] - 24, 25, k === 1));
+          return { lines, h: Math.max(68, Math.max(...lines.map((a) => a.length)) * 34 + 24) };
+        });
+        const customer = wrap(i.customer, 475, 27, true),
+          branch = wrap((i.branch || branches[0]) + " · " + i.currency, 475, 27, true),
+          phone = wrap(i.phone || "—", 475, 27, true);
+        const row1 = Math.max(100, customer.length * 34 + 52),
+          row2 = Math.max(100, branch.length * 34 + 52, phone.length * 34 + 52);
+        const tableY = 348 + row1 + row2 + 36;
+        const noteLines = wrap(i.notes || "—", 475, 25),
+          paymentLines = (i.payments || []).flatMap((p) =>
+            wrap(p.date.slice(0, 10) + " — " + money(p.amount, i.currency), 475, 23),
           );
-          y += 12;
+        const summaryY = tableY + 64 + rows.reduce((s, r) => s + r.h, 0) + 72;
+        const summaryH = Math.max(360, 90 + noteLines.length * 34 + 72 + paymentLines.length * 32);
+        canvas.height = Math.max(1754, summaryY + summaryH + 300);
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, W, canvas.height);
+        ctx.direction = "rtl";
+        ctx.textBaseline = "middle";
+        function fill(x, y, w, h, c) {
+          ctx.fillStyle = c;
+          ctx.fillRect(x, y, w, h);
         }
-        for (const [label, n] of invoiceLines(i)) text(label + ": " + money(n, i.currency), 29);
-        noteLines.forEach((l) => text(l, 25));
-        for (const p of i.payments || [])
-          text("دفعة: " + p.date.slice(0, 10) + " — " + money(p.amount, i.currency), 24);
-        text("توقيع البائع                         توقيع العميل", 25, "#25221b", true);
-        text("شكراً لتعاملكم معنا", 28, "#a67c28", true);
+        function line(x1, y1, x2, y2, c = border, width = 1) {
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.strokeStyle = c;
+          ctx.lineWidth = width;
+          ctx.stroke();
+        }
+        function text(s, x, y, size = 25, bold = false, color = ink, align = "right", serif = false) {
+          font(size, bold, serif);
+          ctx.fillStyle = color;
+          ctx.textAlign = align;
+          ctx.fillText(String(s), x, y);
+        }
+        fill(L, 55, D, 7, gold);
+        ctx.beginPath();
+        ctx.arc(1110, 162, 58, 0, Math.PI * 2);
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        text("AH", 1110, 165, 48, false, gold, "center", true);
+        text("محامص عمي الحسن", 1018, 146, 37, true);
+        text("عالم الموالح والمكسرات", 1018, 194, 25, false, muted);
+        text("فاتورة مبيعات", L, 130, 37, true, ink, "left");
+        text("SALES INVOICE", L, 172, 16, false, muted, "left");
+        text(i.no, L, 216, 23, true, gold, "left");
+        fill(L, 266, D, 52, "#f5f3ee");
+        text("الرقم الضريبي: 906  |  السجل التجاري: 19236", 620, 292, 25, true, ink, "center");
+        const mid = 620;
+        function detail(label, lines, x, y, w, h) {
+          fill(x, y, w, h, "#fafbf9");
+          line(x, y, x + w, y);
+          text(label, x + w - 22, y + 25, 20, false, muted);
+          lines.forEach((s, n) => text(s, x + w - 22, y + 61 + n * 34, 27, true));
+        }
+        detail("اسم العميل", customer, mid + 10, 348, 540, row1);
+        detail("تاريخ الفاتورة", [i.date], L, 348, 540, row1);
+        detail("رقم الهاتف", phone, mid + 10, 348 + row1 + 8, 540, row2);
+        detail("الفرع / العملة", branch, L, 348 + row1 + 8, 540, row2);
+        fill(L, tableY, D, 64, ink);
+        let x = R;
+        ["م", "الصنف / البيان", "الكمية", "الوحدة", "سعر الوحدة*", "الإجمالي"].forEach((h, k) => {
+          text(h, x - widths[k] / 2, tableY + 32, 23, true, "#fff", "center");
+          x -= widths[k];
+        });
+        let y = tableY + 64;
+        rows.forEach((row, n) => {
+          fill(L, y, D, row.h, n % 2 ? "#f7f8f5" : "#fff");
+          let x = R;
+          row.lines.forEach((lines, k) => {
+            line(x, y, x, y + row.h);
+            const top = y + (row.h - (lines.length - 1) * 34) / 2;
+            lines.forEach((s, j) =>
+              text(
+                s,
+                k === 1 ? x - 16 : x - widths[k] / 2,
+                top + j * 34,
+                25,
+                k === 1,
+                ink,
+                k === 1 ? "right" : "center",
+              ),
+            );
+            x -= widths[k];
+          });
+          line(L, y, L, y + row.h);
+          line(L, y + row.h, R, y + row.h);
+          y += row.h;
+        });
+        text(
+          "* سعر الكيلوغرام للكغ والغرام، وسعر القطعة للقطعة. العملة: " + i.currency,
+          R,
+          y + 30,
+          21,
+          false,
+          muted,
+        );
+        text("ملاحظات الفاتورة", R, summaryY + 22, 23, true, gold);
+        noteLines.forEach((s, n) => text(s, R, summaryY + 65 + n * 34, 25));
+        let noteY = summaryY + 94 + noteLines.length * 34;
+        text(
+          dueOf(i) > 0 ? "متبقي للدفع: " + money(dueOf(i), i.currency) : "مسددة بالكامل",
+          R,
+          noteY,
+          25,
+          true,
+          dueOf(i) > 0 ? gold : "#377257",
+        );
+        if (paymentLines.length) {
+          noteY += 46;
+          text("الدفعات المسجلة", R, noteY, 21, true, muted);
+          paymentLines.forEach((s) => {
+            noteY += 32;
+            text(s, R, noteY, 23);
+          });
+        }
+        const tw = 520;
+        invoiceLines(i).forEach(([label, n], idx) => {
+          const sy = summaryY + idx * 57,
+            isGrand = idx === 3;
+          fill(L, sy, tw, 57, isGrand ? ink : idx === 5 ? "#f4eddf" : "#fafbf9");
+          line(L, sy + 57, L + tw, sy + 57, "#e6e7e3");
+          text(label, L + tw - 20, sy + 29, 25, true, isGrand ? "#fff" : ink);
+          text(money(n, i.currency), L + 20, sy + 29, 25, true, isGrand ? "#e5c17a" : ink, "left");
+        });
+        const signY = canvas.height - 222;
+        [985, 620, 255].forEach((cx, n) => {
+          text(["توقيع البائع", "توقيع العميل", "الختم"][n], cx, signY, 23, true, muted, "center");
+          line(cx - 115, signY + 65, cx + 115, signY + 65);
+        });
+        line(L, canvas.height - 99, R, canvas.height - 99, gold, 2);
+        text("شكراً لتعاملكم معنا", 620, canvas.height - 65, 26, true, gold, "center");
+        text("محامص عمي الحسن · عالم الموالح والمكسرات", 620, canvas.height - 30, 18, false, muted, "center");
         return canvas;
       }
       function saveCurrentAsImage() {
