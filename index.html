@@ -1179,6 +1179,50 @@
           margin: 10mm;
         }
       }
+      .fx-value {
+        display: block;
+        white-space: nowrap;
+        line-height: 1.65;
+      }
+      .fx-value + .fx-value {
+        font-size: 0.9em;
+        opacity: 0.85;
+      }
+      .fx-receipt-rate {
+        font-size: 11px;
+        color: #806332;
+        margin: 15px 0;
+      }
+      .fx-control {
+        margin-top: 15px;
+        padding: 12px;
+        background: #faf6ed;
+        border: 1px solid #e5d4ae;
+        border-radius: 12px;
+      }
+      .fx-control[hidden] {
+        display: none;
+      }
+      .fx-control input {
+        direction: ltr;
+        text-align: right;
+      }
+      .total-line {
+        gap: 12px;
+      }
+      .total-line strong,
+      .total-line #grandTxt {
+        text-align: left;
+        overflow-wrap: anywhere;
+      }
+      @media (max-width: 600px) {
+        .formal-totals > div {
+          flex-wrap: wrap;
+        }
+        .formal-totals b {
+          margin-inline-start: auto;
+        }
+      }
     </style>
   </head>
 
@@ -2054,6 +2098,8 @@
       };
       newInvoice = function (c = null) {
         oldNew(c);
+        $("currency").value = c?.currency || "$";
+        $("exchangeRate").value = fxRate({ exchangeRate: localStorage.getItem("ah_exchange_rate") ?? 140 });
         $("invoiceDate").value = today();
         $("paidAmount").value = "";
         $("saleBranch").value = localStorage.getItem("ah_branch") || branches[0];
@@ -2064,6 +2110,7 @@
         oldEdit(no);
         const i = getStore("pos_invoices").find((i) => i.no === no);
         if (!i) return;
+        $("exchangeRate").value = fxRate(i);
         $("saleBranch").value = i.branch || branches[0];
         $("paidAmount").value = paidOf(i);
         $("invoiceNo").readOnly = true;
@@ -2119,7 +2166,11 @@
           ["taxTxt", t.taxAmount],
           ["grandTxt", t.total],
         ])
-          $(id).textContent = money(n, c);
+          $(id).textContent = dualMoney(n, {
+            currency: c,
+            exchangeRate: Number($("exchangeRate")?.value || 140),
+          });
+        if ($("exchangeRate")) $("exchangeRate").closest(".fx-control").hidden = !(c === "$" || c === "ل.س");
         if ($("dueTxt"))
           $("dueTxt").textContent = money(
             Math.max(
@@ -2132,11 +2183,16 @@
       const oldData = invoiceData;
       invoiceData = function () {
         const i = oldData();
+        i.exchangeRate = Number($("exchangeRate").value);
         i.branch = $("saleBranch").value;
         i.paid = $("paidAmount").value === "" ? i.total : round($("paidAmount").value);
         return i;
       };
       function validInvoice(i) {
+        if (fxEnabled(i) && (!Number.isFinite(i.exchangeRate) || i.exchangeRate <= 0)) {
+          alert("أدخل سعر صرف صحيحاً أكبر من صفر");
+          return false;
+        }
         if (!i.no || !i.date || !i.customer || !i.items.length) {
           alert("أكمل رقم الفاتورة والتاريخ والعميل والأصناف.");
           return false;
@@ -2231,7 +2287,7 @@
         ];
       }
       function invoiceDesc(i) {
-        return `<strong>${esc(i.customer)}</strong><div class="meta">${esc(i.no)} · ${esc(i.date)} · ${esc(i.branch || branches[0])}</div><div class="meta">${esc(money(i.total, i.currency))} · المتبقي: ${esc(money(dueOf(i), i.currency))}</div>`;
+        return `<strong>${esc(i.customer)}</strong><div class="meta">${esc(i.no)} · ${esc(i.date)} · ${esc(i.branch || branches[0])}</div><div class="meta">${esc(dualMoney(i.total, i))} · المتبقي: ${esc(dualMoney(dueOf(i), i))}</div>`;
       }
       function renderInvoices() {
         const q = $("invoiceSearch").value.trim().toLowerCase();
@@ -2482,6 +2538,44 @@
           $("reportExtra").append(p);
         }
       }
+
+      function fxRate(i) {
+        const n = Number(i?.exchangeRate ?? 140);
+        return Number.isFinite(n) && n > 0 ? n : 140;
+      }
+      function fxEnabled(i) {
+        return i.currency === "$" || i.currency === "ل.س";
+      }
+      function fxValues(n, i) {
+        return i.currency === "$"
+          ? [money(n, "$"), money(round(n * fxRate(i)), "ل.س")]
+          : [money(round(n / fxRate(i)), "$"), money(n, "ل.س")];
+      }
+      function dualMoney(n, i) {
+        return fxEnabled(i) ? fxValues(n, i).join(" | ") : money(n, i.currency);
+      }
+      function dualMarkup(n, i) {
+        return fxEnabled(i)
+          ? fxValues(n, i)
+              .map((v) => '<span class="fx-value">' + esc(v) + "</span>")
+              .join("")
+          : esc(money(n, i.currency));
+      }
+      function updateExchangeRate() {
+        const n = Number($("exchangeRate").value);
+        $("exchangeRate").setCustomValidity(Number.isFinite(n) && n > 0 ? "" : "أدخل سعر صرف أكبر من صفر");
+        if (Number.isFinite(n) && n > 0) localStorage.setItem("ah_exchange_rate", String(n));
+        recalc();
+      }
+      function setupExchangeRate() {
+        const card = $("sale").querySelector(".card");
+        const d = document.createElement("div");
+        d.className = "fx-control";
+        d.innerHTML =
+          '<label for="exchangeRate">سعر الصرف: 1 دولار = كم ليرة سورية؟</label><input id="exchangeRate" type="number" min="0.000001" step="any" inputmode="decimal" value="140" oninput="updateExchangeRate()"><p class="meta">أدخل أسعار الأصناف والمبلغ المدفوع بالعملة المختارة. يظهر المقابل بالدولار والسوري تلقائياً، ويُحفظ سعر الصرف مع كل فاتورة.</p>';
+        card.append(d);
+      }
+
       function invoiceLines(i) {
         return [
           ["المجموع", i.subtotal ?? i.total],
@@ -2509,12 +2603,12 @@
     </div>
     <table class="formal-table"><colgroup><col style="width:6%"><col style="width:35%"><col style="width:12%"><col style="width:11%"><col style="width:17%"><col style="width:19%"></colgroup><thead><tr><th>م</th><th>الصنف / البيان</th><th>الكمية</th><th>الوحدة</th><th>سعر الوحدة*</th><th>الإجمالي</th></tr></thead><tbody>${i.items.map((x, n) => `<tr><td>${n + 1}</td><td>${esc(x.name)}</td><td>${esc(x.qty)}</td><td>${esc(unit(x))}</td><td>${money(x.price)}</td><td>${money(lineTotal(x))}</td></tr>`).join("")}</tbody></table>
     <div class="formal-table-note">* السعر لكل كيلوغرام عند البيع بالكغ أو الغرام، ولكل قطعة عند البيع بالقطعة. جميع المبالغ بالعملة: ${esc(i.currency)}</div>
-    <div class="formal-bottom"><div class="formal-notes"><span class="formal-caption">ملاحظات الفاتورة</span><p>${esc(i.notes || "—")}</p><div class="formal-payment">${dueOf(i) > 0 ? "متبقي للدفع: " + esc(money(dueOf(i), i.currency)) : "مسددة بالكامل"}</div>${(i.payments || []).length ? '<p class="formal-history">الدفعات المسجلة<br>' + i.payments.map((p) => esc(p.date.slice(0, 10)) + " — " + esc(money(p.amount, i.currency))).join("<br>") + "</p>" : ""}</div><div class="formal-totals">${invoiceLines(
+    ${fxEnabled(i) ? `<div class="fx-receipt-rate">سعر الصرف: 1 $ = ${fxRate(i)} ل.س</div>` : ""}<div class="formal-bottom"><div class="formal-notes"><span class="formal-caption">ملاحظات الفاتورة</span><p>${esc(i.notes || "—")}</p><div class="formal-payment">${dueOf(i) > 0 ? "متبقي للدفع: " + esc(dualMoney(dueOf(i), i)) : "مسددة بالكامل"}</div>${(i.payments || []).length ? '<p class="formal-history">الدفعات المسجلة<br>' + i.payments.map((p) => esc(p.date.slice(0, 10)) + " — " + esc(money(p.amount, i.currency))).join("<br>") + "</p>" : ""}</div><div class="formal-totals">${invoiceLines(
       i,
     )
       .map(
         ([label, n], idx) =>
-          `<div class="${idx === 3 ? "formal-grand" : idx === 5 ? "formal-due" : ""}"><span>${label}</span><b>${esc(money(n, i.currency))}</b></div>`,
+          `<div class="${idx === 3 ? "formal-grand" : idx === 5 ? "formal-due" : ""}"><span>${label}</span><b>${dualMarkup(n, i)}</b></div>`,
       )
       .join("")}</div></div>
     <div class="formal-signatures"><div><span>توقيع البائع</span><i></i></div><div><span>توقيع العميل</span><i></i></div><div><span>الختم</span><i></i></div></div>
@@ -2583,7 +2677,10 @@
             wrap(p.date.slice(0, 10) + " — " + money(p.amount, i.currency), 475, 23),
           );
         const summaryY = tableY + 64 + rows.reduce((s, r) => s + r.h, 0) + 72;
-        const summaryH = Math.max(360, 90 + noteLines.length * 34 + 72 + paymentLines.length * 32);
+        const summaryH = Math.max(
+          fxEnabled(i) ? 580 : 360,
+          90 + noteLines.length * 34 + 72 + paymentLines.length * 32,
+        );
         canvas.height = Math.max(1754, summaryY + summaryH + 300);
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, W, canvas.height);
@@ -2689,14 +2786,21 @@
             text(s, R, noteY, 23);
           });
         }
+        if (fxEnabled(i))
+          text("سعر الصرف: 1 $ = " + fxRate(i) + " ل.س", L, summaryY - 12, 21, false, muted, "left");
         const tw = 520;
+        const totalRowH = fxEnabled(i) ? 88 : 57;
         invoiceLines(i).forEach(([label, n], idx) => {
-          const sy = summaryY + idx * 57,
+          const sy = summaryY + idx * totalRowH,
             isGrand = idx === 3;
-          fill(L, sy, tw, 57, isGrand ? ink : idx === 5 ? "#f4eddf" : "#fafbf9");
-          line(L, sy + 57, L + tw, sy + 57, "#e6e7e3");
-          text(label, L + tw - 20, sy + 29, 25, true, isGrand ? "#fff" : ink);
-          text(money(n, i.currency), L + 20, sy + 29, 25, true, isGrand ? "#e5c17a" : ink, "left");
+          fill(L, sy, tw, totalRowH, isGrand ? ink : idx === 5 ? "#f4eddf" : "#fafbf9");
+          line(L, sy + totalRowH, L + tw, sy + totalRowH, "#e6e7e3");
+          text(label, L + tw - 20, sy + totalRowH / 2, 25, true, isGrand ? "#fff" : ink);
+          if (fxEnabled(i)) {
+            fxValues(n, i).forEach((v, k) =>
+              text(v, L + 20, sy + 27 + k * 35, 24, true, isGrand ? "#e5c17a" : ink, "left"),
+            );
+          } else text(money(n, i.currency), L + 20, sy + 29, 25, true, isGrand ? "#e5c17a" : ink, "left");
         });
         const signY = canvas.height - 222;
         [985, 620, 255].forEach((cx, n) => {
@@ -2929,6 +3033,7 @@
         form.append(cancel);
       }
       polishControls();
+      setupExchangeRate();
 
       refreshDatalists();
 
