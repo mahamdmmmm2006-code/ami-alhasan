@@ -1246,6 +1246,16 @@
       .section-empty p { color:var(--muted); }
       @media(min-width:700px) { #home .pos-menu .tile { min-height:190px; aspect-ratio:auto; } }
       @media(max-width:360px) { #home .pos-menu .tile { min-height:145px; gap:14px; } #home .pos-menu .label { font-size:19px; } }
+
+      .customer-menu-heading { display:flex; align-items:center; justify-content:center; gap:24px; padding:22px 12px 30px; font-size:30px; }
+      .customer-menu-heading > span { font-size:60px; }
+      .customer-menu { display:flex; flex-direction:column; gap:12px; }
+      .customer-menu > button { display:flex; align-items:center; gap:14px; width:100%; min-height:88px; padding:20px 16px; background:white; border:1px solid #e3e1dc; border-radius:10px; color:#252829; font:inherit; font-size:18px; text-align:right; cursor:pointer; }
+      .customer-menu > button > span:first-child { font-size:30px; flex-shrink:0; }
+      .customer-menu > button > span:nth-child(2) { flex:1; line-height:1.7; }
+      .customer-menu .menu-chevron { color:#9b722a; font-size:26px; }
+      .customer-menu > button:hover { background:#fffaf0; border-color:#ad8b48; }
+      .customer-menu > button:focus-visible { outline:3px solid #ad8b48; outline-offset:3px; }
     </style>
   </head>
 
@@ -1455,10 +1465,47 @@
       </section>
 
       <section id="customers" class="screen">
+        <div class="section-title"><h2>العملاء</h2><button class="back" onclick="showScreen('home')">رجوع</button></div>
+        <div class="customer-menu-heading"><span aria-hidden="true">👤</span><strong>العملاء</strong></div>
+        <div class="customer-menu">
+          <button type="button" onclick="showScreen('customerAdd')"><span aria-hidden="true">➕</span><span>إضافة عميل جديد</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+          <button type="button" onclick="showScreen('customerOpening')"><span aria-hidden="true">💱</span><span>الأرصدة الافتتاحية والمبالغ النقدية للعملاء</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+          <button type="button" onclick="showScreen('customerDebts')"><span aria-hidden="true">👤</span><span>ذمم العملاء - المبالغ المتبقية عند العملاء من الفواتير الآجلة</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+          <button type="button" onclick="showScreen('customerDebtReport')"><span aria-hidden="true">📄</span><span>ذمم العملاء - تقرير</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+          <button type="button" onclick="showScreen('customerCreditReport')"><span aria-hidden="true">📄</span><span>العملاء المتبقي لهم أرصدة - تقرير</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+          <button type="button" onclick="showScreen('customerBalanceCheck')"><span aria-hidden="true">📋</span><span>فحص أرصدة العملاء</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+          <button type="button" onclick="showScreen('customerDirectory')"><span aria-hidden="true">🔎</span><span>عرض العملاء</span><span aria-hidden="true" class="menu-chevron">‹</span></button>
+        </div>
+      </section>
+      <section id="customerAdd" class="screen">
+        <div class="section-title"><h2>إضافة عميل جديد</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">➕</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+      </section>
+      <section id="customerOpening" class="screen">
+        <div class="section-title"><h2>الأرصدة الافتتاحية والمبالغ النقدية للعملاء</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">💱</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+      </section>
+      <section id="customerDebts" class="screen">
+        <div class="section-title"><h2>ذمم العملاء - المبالغ المتبقية عند العملاء من الفواتير الآجلة</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">👤</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+      </section>
+      <section id="customerDebtReport" class="screen">
+        <div class="section-title"><h2>ذمم العملاء - تقرير</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">📄</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+      </section>
+      <section id="customerCreditReport" class="screen">
+        <div class="section-title"><h2>العملاء المتبقي لهم أرصدة - تقرير</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">📄</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+      </section>
+      <section id="customerBalanceCheck" class="screen">
+        <div class="section-title"><h2>فحص أرصدة العملاء</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">📋</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+      </section>
+      <section id="customerDirectory" class="screen">
         <div class="section-title">
-          <h2>العملاء</h2>
+          <h2>عرض العملاء</h2>
 
-          <button class="back" onclick="showScreen('home')">رجوع</button>
+          <button class="back" onclick="showScreen('customers')">رجوع</button>
         </div>
 
         <input
@@ -1475,7 +1522,7 @@
         <div class="section-title">
           <h2 id="customerTitle">العميل</h2>
 
-          <button class="back" onclick="showScreen('customers')">رجوع</button>
+          <button class="back" onclick="showScreen('customerDirectory')">رجوع</button>
         </div>
 
         <div class="stats">
@@ -1676,7 +1723,7 @@
           renderInvoices();
         }
 
-        if (id === "customers") {
+        if (id === "customerDirectory") {
           renderCustomers();
         }
 
