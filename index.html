@@ -132,7 +132,75 @@ footer{text-align:center;border-top:2px solid var(--gold);margin-top:28px;paddin
 
 <section id="expenses" class="screen"><div class="section-title"><h2>المصروفات</h2><button class="back" onclick="show('home')">رجوع</button></div><div class="card"><div class="row"><div><label>اسم المصروف</label><input id="eName"></div><div><label>المبلغ</label><input id="eAmount" type="number" min="0.01" step="0.01"></div></div><div class="row"><div><label>العملة</label><select id="eCurrency"><option>$</option><option>ل.س</option><option>€</option><option>₺</option></select></div><div><label>الفرع</label><select id="eBranch"></select></div></div><button class="btn btn-primary full" style="margin-top:10px" onclick="saveExpense()">إضافة مصروف</button></div><div id="eList"></div></section>
 
-<section id="reports" class="screen"><div class="section-title"><h2>التقارير</h2><button class="back" onclick="show('home')">رجوع</button></div><div class="card"><div class="grid grid2"><div><label>من تاريخ</label><input id="rFrom" type="date"></div><div><label>إلى تاريخ</label><input id="rTo" type="date"></div></div><label>الفرع</label><select id="rBranch"></select></div><div class="stats"><div class="stat"><div class="num" id="rInv">0</div><div>الفواتير</div></div><div class="stat"><div class="num" id="rCust">0</div><div>العملاء</div></div><div class="stat"><div class="num" id="rSales">0</div><div>المبيعات</div></div><div class="stat"><div class="num" id="rExp">0</div><div>المصروفات</div></div></div><div class="card" id="rExtra"></div></section>
+<section id="reports" class="screen"><div class="section-title"><h2>الاستعلامات والتقارير</h2><button class="back" onclick="show('home')">رجوع</button></div>
+<div class="card"><div class="grid grid2"><div><label>من تاريخ</label><input id="rFrom" type="date"></div><div><label>إلى تاريخ</label><input id="rTo" type="date"></div></div><label>الفرع</label><select id="rBranch"></select></div>
+<div class="stats"><div class="stat"><div class="num" id="rInv">0</div><div>الفواتير</div></div><div class="stat"><div class="num" id="rCust">0</div><div>العملاء</div></div><div class="stat"><div class="num" id="rSales">0</div><div>المبيعات</div></div><div class="stat"><div class="num" id="rExp">0</div><div>المصروفات</div></div></div>
+<div class="card"><div class="notice">اختر الاستعلام المطلوب لعرض التقرير. كل الأزرار تعمل على بيانات النظام المحفوظة على الجهاز، ويمكنك تغيير الفترة والفرع ثم فتح أي تقرير.</div></div>
+<div class="report-sections">
+<h3>المخازن</h3><div class="menu">
+<button onclick="openReport('stockByCategory')"><span class="txt">جرد مخزني حسب التصنيف</span><span class="chev">‹</span></button>
+<button onclick="openReport('stockCategory')"><span class="txt">جرد مخزني لتصنيف</span><span class="chev">‹</span></button>
+<button onclick="openReport('expiry')"><span class="txt">تقرير بالمنتجات حسب تاريخ الانتهاء</span><span class="chev">‹</span></button>
+<button onclick="openReport('productMovement')"><span class="txt">تقرير بحركة منتج</span><span class="chev">‹</span></button>
+<button onclick="openReport('damaged')"><span class="txt">تقرير بالمنتجات التالفة</span><span class="chev">‹</span></button></div>
+<h3>الصندوق</h3><div class="menu">
+<button onclick="openReport('cashMovement')"><span class="txt">تقرير بحركة الصندوق</span><span class="chev">‹</span></button>
+<button onclick="openReport('capital')"><span class="txt">تقرير رأس المال</span><span class="chev">‹</span></button>
+<button onclick="openReport('zakat')"><span class="txt">حساب الزكاة</span><span class="chev">‹</span></button>
+<button onclick="openReport('taxDecision')"><span class="txt">تقرير بالقرار الضريبي</span><span class="chev">‹</span></button>
+<button onclick="openReport('taxDecisionReturn')"><span class="txt">تقرير بالقرار الضريبي مع المرتجع</span><span class="chev">‹</span></button></div>
+<h3>المصروفات</h3><div class="menu">
+<button onclick="openReport('expenses')"><span class="txt">تقرير بالمصروفات</span><span class="chev">‹</span></button>
+<button onclick="openReport('expensesByAccount')"><span class="txt">تقرير بالمصروفات حسب الحساب</span><span class="chev">‹</span></button>
+<button onclick="openReport('expensesForAccount')"><span class="txt">تقرير بالمصروفات لحساب</span><span class="chev">‹</span></button>
+<button onclick="openReport('expensesByPayment')"><span class="txt">تقرير بالمصروفات حسب طريقة الدفع</span><span class="chev">‹</span></button></div>
+<h3>الموردين</h3><div class="menu">
+<button onclick="openReport('supplierBalance')"><span class="txt">تقرير بالمتبقي للموردين</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierAccount')"><span class="txt">كشف حساب مورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierOpeningCash')"><span class="txt">تقرير بحركة الرصيد الافتتاحي والنقد للمورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierInvoices')"><span class="txt">تقرير بالفواتير لمورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierInvoicesTotal')"><span class="txt">تقرير بالفواتير لمورد - إجمالي</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierPayVouchers')"><span class="txt">تقرير بسندات الصرف لمورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierReceiveVouchers')"><span class="txt">تقرير بسندات القبض لمورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierSettlement')"><span class="txt">تقرير بحركة التسديد لمورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierItemTotal')"><span class="txt">تقرير إجمالي حسب الصنف لمورد</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierPayments')"><span class="txt">تقرير بحركة السداد للموردين</span><span class="chev">‹</span></button>
+<button onclick="openReport('supplierPaymentsMethod')"><span class="txt">تقرير بحركة السداد للموردين حسب طريقة الدفع</span><span class="chev">‹</span></button></div>
+<h3>المشتريات</h3><div class="menu">
+<button onclick="openReport('purchases')"><span class="txt">تقرير بالمشتريات</span><span class="chev">‹</span></button>
+<button onclick="openReport('purchaseInvoices')"><span class="txt">عرض فواتير المشتريات</span><span class="chev">‹</span></button>
+<button onclick="openReport('purchaseReturns')"><span class="txt">تقرير بالفواتير المرتجع-مشتريات</span><span class="chev">‹</span></button>
+<button onclick="openReport('cancelledPurchases')"><span class="txt">تقرير بفواتير المشتريات التي تم إلغائها</span><span class="chev">‹</span></button>
+<button onclick="openReport('purchaseOrders')"><span class="txt">تقرير بطلبات الشراء</span><span class="chev">‹</span></button></div>
+<h3>العملاء</h3><div class="menu">
+<button onclick="openReport('customerDebts')"><span class="txt">ذمم العملاء</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerAccount')"><span class="txt">كشف حساب عميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerOpeningCash')"><span class="txt">تقرير بحركة الرصيد الافتتاحي والنقد للعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerInvoices')"><span class="txt">تقرير بالفواتير لعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerInvoicesTotal')"><span class="txt">تقرير بالفواتير لعميل - إجمالي</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerReturns')"><span class="txt">تقرير بالفواتير المرتجع لعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerPayVouchers')"><span class="txt">تقرير بسندات القبض لعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerReceiveVouchers')"><span class="txt">تقرير بسندات الصرف لعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerSettlement')"><span class="txt">تقرير بحركة التسديد لعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerItemTotal')"><span class="txt">تقرير إجمالي حسب الصنف لعميل</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerPayments')"><span class="txt">تقرير بحركة السداد للعملاء</span><span class="chev">‹</span></button>
+<button onclick="openReport('customerPaymentsMethod')"><span class="txt">تقرير بحركة السداد للعملاء حسب طريقة الدفع</span><span class="chev">‹</span></button></div>
+<h3>المبيعات</h3><div class="menu">
+<button onclick="openReport('sales')"><span class="txt">تقرير بالمبيعات</span><span class="chev">‹</span></button>
+<button onclick="openReport('profits')"><span class="txt">تقارير الأرباح</span><span class="chev">‹</span></button>
+<button onclick="openReport('salesInvoices')"><span class="txt">عرض فواتير المبيعات</span><span class="chev">‹</span></button>
+<button onclick="openReport('discounts')"><span class="txt">تقرير بالخصومات</span><span class="chev">‹</span></button>
+<button onclick="openReport('creditInvoices')"><span class="txt">تقرير بالفواتير الآجل</span><span class="chev">‹</span></button>
+<button onclick="openReport('salesReturns')"><span class="txt">تقرير بالفواتير المرتجع-مبيعات</span><span class="chev">‹</span></button>
+<button onclick="openReport('cancelledSales')"><span class="txt">تقرير بفواتير المبيعات التي تم إلغائها</span><span class="chev">‹</span></button>
+<button onclick="openReport('priceOffers')"><span class="txt">تقرير بعروض الاسعار</span><span class="chev">‹</span></button>
+<button onclick="openReport('taxByProduct')"><span class="txt">إجمالي الضرائب حسب الصنف</span><span class="chev">‹</span></button>
+<button onclick="openReport('taxByCustomer')"><span class="txt">إجمالي الضرائب حسب العميل</span><span class="chev">‹</span></button></div>
+<h3>المتجر</h3><div class="menu">
+<button onclick="openReport('storeMovement')"><span class="txt">عرض حركة المتجر</span><span class="chev">‹</span></button>
+<button onclick="openReport('storeChart')"><span class="txt">عرض حركة المتجر - رسم بياني</span><span class="chev">‹</span></button></div>
+</div>
+<div id="reportView" class="card" style="display:none"></div></section>
 
 <section id="previewScreen" class="screen"><div class="section-title no-print"><h2>معاينة الفاتورة</h2><button class="back" onclick="show('invoices')">رجوع</button></div><div id="preview" class="formal"></div><div class="actions no-print"><button class="btn btn-secondary" onclick="window.print()">طباعة / PDF</button><button class="btn btn-primary" onclick="savePreviewImage()">حفظ كصورة</button><button class="btn btn-success" onclick="sharePreview()">مشاركة</button></div></section>
 </main>
@@ -198,6 +266,45 @@ function savePurchase(){const row={id:String(Date.now()),supplier:$("purSupplier
 function renderPurchases(){cardList($("purList"),get("ah_purchases"),p=>'<strong>'+esc(p.product)+'</strong><div class="meta">'+esc(p.date)+' · '+esc(p.supplier)+' · '+esc(p.qty)+' · '+esc(money(p.price,p.currency))+' · '+esc(p.branch)+'</div>',p=>[button("حذف",()=>{if(confirm("حذف المشتريات؟")){const ps=get("ah_products"),pi=ps.findIndex(x=>x.name===p.product&&x.branch===p.branch&&x.stock!=null);if(pi>=0){ps[pi].stock=round(Math.max(0,Number(ps[pi].stock)-Number(p.qty||0)));set("ah_products",ps)}set("ah_purchases",get("ah_purchases").filter(x=>x.id!==p.id));renderPurchases();renderProducts()}},"btn-danger")])}
 function renderReports(){const from=$("rFrom").value,to=$("rTo").value,branch=$("rBranch").value,match=i=>(!from||i.date>=from)&&(!to||i.date<=to)&&(!branch||i.branch===branch),inv=get("ah_invoices").filter(match),ex=get("ah_expenses").filter(match);$("rInv").textContent=inv.length;$("rCust").textContent=new Set(inv.map(i=>i.customer)).size;$("rSales").textContent=group(inv,i=>i.total);$("rExp").textContent=group(ex,i=>i.amount);$("rExtra").innerHTML='<p>المقبوض: '+esc(group(inv,paid))+'</p><p>المتبقي: '+esc(group(inv,due))+'</p><p>حركات الصندوق: '+get("ah_cash").filter(match).length+'</p>'}
 $("rFrom").onchange=$("rTo").onchange=$("rBranch").onchange=renderReports;
+function reportFilter(rows){const from=$("rFrom")?.value||"",to=$("rTo")?.value||"",branch=$("rBranch")?.value||"";return rows.filter(x=>(!from||String(x.date||"")>=from)&&(!to||String(x.date||"")<=to)&&(!branch||x.branch===branch))}
+function reportTable(headers,rows){if(!rows.length)return '<div class="empty">لا توجد بيانات ضمن الفترة المحددة.</div>';return '<div style="overflow:auto"><table style="width:100%;border-collapse:collapse"><thead><tr>'+headers.map(h=>'<th style="background:#292b2e;color:#fff;padding:9px 5px;font-size:12px">'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(r=>'<tr>'+r.map(v=>'<td style="border:1px solid #e6dfd3;padding:9px 5px;text-align:center;font-size:12px">'+esc(v)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'}
+function reportTitle(title){return '<div class="section-title"><h2 style="font-size:20px">'+esc(title)+'</h2><button class="btn btn-secondary small" onclick="document.getElementById(\'reportView\').style.display=\'none\'">إغلاق</button></div>'}
+function openReport(type){const box=$("reportView");box.style.display="block";const inv=reportFilter(get("ah_invoices")),pur=reportFilter(get("ah_purchases")),cash=reportFilter(get("ah_cash")),exp=reportFilter(get("ah_expenses")),products=get("ah_products");let title="",html="";
+const invRows=inv.map(i=>[i.no,i.date,i.customer,money(i.total,i.currency),money(paid(i),i.currency),money(due(i),i.currency)]);
+const purRows=pur.map(p=>[p.date,p.supplier,p.product,p.qty,money(p.price,p.currency),p.branch]);
+switch(type){
+case "sales":title="تقرير بالمبيعات";html=reportTable(["الفاتورة","التاريخ","العميل","الإجمالي","المدفوع","المتبقي"],invRows);break;
+case "salesInvoices":title="عرض فواتير المبيعات";html=reportTable(["الفاتورة","التاريخ","العميل","الإجمالي","المدفوع","المتبقي"],invRows);break;
+case "creditInvoices":title="تقرير بالفواتير الآجل";html=reportTable(["الفاتورة","التاريخ","العميل","الإجمالي","المتبقي"],inv.filter(i=>due(i)>0).map(i=>[i.no,i.date,i.customer,money(i.total,i.currency),money(due(i),i.currency)]));break;
+case "discounts":title="تقرير بالخصومات";html=reportTable(["الفاتورة","التاريخ","العميل","الخصم"],inv.filter(i=>Number(i.discount)>0).map(i=>[i.no,i.date,i.customer,money(i.discount,i.currency)]));break;
+case "purchases":case "purchaseInvoices":title=type==="purchases"?"تقرير بالمشتريات":"عرض فواتير المشتريات";html=reportTable(["التاريخ","المورد","الصنف","الكمية","السعر","الفرع"],purRows);break;
+case "purchaseReturns":case "cancelledPurchases":case "purchaseOrders":title=type==="purchaseReturns"?"تقرير بالفواتير المرتجع-مشتريات":type==="cancelledPurchases"?"تقرير بفواتير المشتريات التي تم إلغائها":"تقرير بطلبات الشراء";html='<div class="notice">لا توجد سجلات منفصلة للمرتجعات أو الإلغاء أو طلبات الشراء في النسخة الحالية. عند إضافة هذه العمليات سيظهر التقرير هنا تلقائياً.</div>'+reportTable(["التاريخ","المورد","الصنف","الكمية","السعر"],pur.map(p=>[p.date,p.supplier,p.product,p.qty,money(p.price,p.currency)]));break;
+case "cashMovement":title="تقرير بحركة الصندوق";html=reportTable(["التاريخ","الحركة","المبلغ","العملة","الفرع","البيان"],cash.map(x=>[x.date,x.type==="in"?"قبض / إيداع":"دفع / سحب",x.amount,x.currency,x.branch,x.note||""]));break;
+case "capital":title="تقرير رأس المال";html='<div class="notice">الرصيد الحالي للصندوق حسب العملة: '+currencies.map(cur=>money(cash.filter(x=>x.currency===cur).reduce((s,x)=>s+(x.type==="in"?Number(x.amount):-Number(x.amount)),0),cur)).join(" · ")+'</div>';break;
+case "zakat":title="حساب الزكاة";html='<div class="notice">هذا التقرير يحسب 2.5% من صافي أرصدة الصندوق المسجلة في الفترة. '+currencies.map(cur=>{const n=cash.filter(x=>x.currency===cur).reduce((s,x)=>s+(x.type==="in"?Number(x.amount):-Number(x.amount)),0);return money(Math.max(0,n)*.025,cur)}).join(" · ")+'</div>';break;
+case "taxDecision":case "taxDecisionReturn":title=type==="taxDecision"?"تقرير بالقرار الضريبي":"تقرير بالقرار الضريبي مع المرتجع";html=reportTable(["الفاتورة","التاريخ","العميل","الضريبة"],inv.map(i=>[i.no,i.date,i.customer,money(i.taxAmount||0,i.currency)]));break;
+case "expenses":case "expensesByAccount":case "expensesForAccount":case "expensesByPayment":title=type==="expenses"?"تقرير بالمصروفات":type==="expensesByAccount"?"تقرير بالمصروفات حسب الحساب":type==="expensesForAccount"?"تقرير بالمصروفات لحساب":"تقرير بالمصروفات حسب طريقة الدفع";html=reportTable(["التاريخ","المصروف","المبلغ","العملة","الفرع"],exp.map(x=>[x.date,x.name,x.amount,x.currency,x.branch]));break;
+case "stockByCategory":case "stockCategory":title=type==="stockByCategory"?"جرد مخزني حسب التصنيف":"جرد مخزني لتصنيف";html=reportTable(["الصنف","الرصيد","الوحدة","السعر","الفرع"],products.map(p=>[p.name,p.stock==null?"غير متابع":p.stock,p.unit,money(p.price,p.currency),p.branch]));break;
+case "expiry":title="تقرير بالمنتجات حسب تاريخ الانتهاء";html='<div class="notice">حقول تاريخ الانتهاء غير موجودة حالياً في بيانات الأصناف، لذلك لا يمكن إظهار تواريخ غير مسجلة.</div>';break;
+case "damaged":title="تقرير بالمنتجات التالفة";html='<div class="notice">لا توجد حركة مستقلة للمنتجات التالفة في البيانات الحالية.</div>';break;
+case "productMovement":title="تقرير بحركة منتج";html=reportTable(["التاريخ","النوع","الصنف","الكمية","المرجع"],[...pur.map(p=>[p.date,"شراء",p.product,p.qty,p.supplier]),...inv.flatMap(i=>(i.items||[]).map(x=>[i.date,"بيع",x.name,-x.qty,i.no]))].sort((a,b)=>a[0].localeCompare(b[0])));break;
+case "supplierBalance":case "supplierAccount":title=type==="supplierBalance"?"تقرير بالمتبقي للموردين":"كشف حساب مورد";html=reportTable(["المورد","إجمالي المشتريات","الدفعات المسجلة","المتبقي"],[...new Set(pur.map(p=>p.supplier))].map(s=>{const total=pur.filter(p=>p.supplier===s).reduce((a,p)=>a+Number(p.qty)*Number(p.price),0);return[s,total.toFixed(2),"0.00",total.toFixed(2)]}));break;
+case "supplierInvoices":case "supplierInvoicesTotal":case "supplierItemTotal":title=type==="supplierInvoices"?"تقرير بالفواتير لمورد":type==="supplierInvoicesTotal"?"تقرير بالفواتير لمورد - إجمالي":"تقرير إجمالي حسب الصنف لمورد";html=reportTable(["التاريخ","المورد","الصنف","الكمية","الإجمالي"],pur.map(p=>[p.date,p.supplier,p.product,p.qty,money(Number(p.qty)*Number(p.price),p.currency)]));break;
+case "supplierOpeningCash":case "supplierPayVouchers":case "supplierReceiveVouchers":case "supplierSettlement":case "supplierPayments":case "supplierPaymentsMethod":title="تقارير حركة وسداد الموردين";html='<div class="notice">لا توجد سندات قبض/صرف أو تسديد موردين مستقلة حالياً. سيتم عرض البيانات عند تسجيلها في النظام.</div>'+reportTable(["التاريخ","المورد","الصنف","المبلغ"],pur.map(p=>[p.date,p.supplier,p.product,money(Number(p.qty)*Number(p.price),p.currency)]));break;
+case "customerDebts":title="ذمم العملاء";html=reportTable(["العميل","العملة","المتبقي"],balances().map(x=>[x.name,x.c,money(x.balance,x.c)]));break;
+case "customerAccount":case "customerInvoices":case "customerInvoicesTotal":title=type==="customerAccount"?"كشف حساب عميل":type==="customerInvoices"?"تقرير بالفواتير لعميل":"تقرير بالفواتير لعميل - إجمالي";html=reportTable(["الفاتورة","التاريخ","العميل","الإجمالي","المدفوع","المتبقي"],invRows);break;
+case "customerOpeningCash":case "customerPayVouchers":case "customerReceiveVouchers":case "customerSettlement":case "customerPayments":case "customerPaymentsMethod":title="تقارير حركة وسداد العملاء";html=reportTable(["التاريخ","العميل","الفاتورة","الدفعة","العملة"],inv.flatMap(i=>(i.payments||[]).map(p=>[p.date||i.date,i.customer,i.no,p.amount,i.currency])));break;
+case "customerReturns":title="تقرير بالفواتير المرتجع لعميل";html='<div class="notice">لا توجد سجلات مستقلة لمرتجعات المبيعات حالياً.</div>';break;
+case "customerItemTotal":title="تقرير إجمالي حسب الصنف لعميل";html=reportTable(["الصنف","الكمية","الإجمالي"],Object.values(inv.flatMap(i=>i.items||[]).reduce((m,x)=>{m[x.name]??={q:0,t:0};m[x.name].q+=Number(x.qty);m[x.name].t+=lineTotal(x);return m},{})).map(x=>[x.name||"",x.q,x.t]));break;
+case "profits":title="تقارير الأرباح";html=reportTable(["الفاتورة","التاريخ","المبيعات","التكلفة التقديرية","الربح"],inv.map(i=>{const cost=(i.items||[]).reduce((s,x)=>s+(Number(x.cost||0)*Number(x.qty||0)),0);return[i.no,i.date,money(i.total,i.currency),money(cost,i.currency),money(Number(i.total)-cost,i.currency)]}));break;
+case "salesReturns":case "cancelledSales":case "priceOffers":title=type==="salesReturns"?"تقرير بالفواتير المرتجع-مبيعات":type==="cancelledSales"?"تقرير بفواتير المبيعات التي تم إلغائها":"تقرير بعروض الاسعار";html='<div class="notice">لا توجد سجلات مستقلة لهذا النوع في البيانات الحالية.</div>';break;
+case "taxByProduct":title="إجمالي الضرائب حسب الصنف";html=reportTable(["الصنف","الضريبة"],Object.values(inv.flatMap(i=>i.items||[]).reduce((m,x)=>{m[x.name]??={t:0};m[x.name].t+=Number(iTax(i,x));return m},{})).map(x=>[x.name,money(x.t,"$")]));break;
+case "taxByCustomer":title="إجمالي الضرائب حسب العميل";html=reportTable(["العميل","الضريبة"],Object.values(inv.reduce((m,i)=>{m[i.customer]??={name:i.customer,t:0,c:i.currency};m[i.customer].t+=Number(i.taxAmount||0);return m},{})).map(x=>[x.name,money(x.t,x.c)]));break;
+case "storeMovement":title="عرض حركة المتجر";html=reportTable(["التاريخ","النوع","الصنف","الكمية","المرجع"],[...pur.map(p=>[p.date,"شراء",p.product,p.qty,p.supplier]),...inv.flatMap(i=>(i.items||[]).map(x=>[i.date,"بيع",x.name,-x.qty,i.no]))]);break;
+case "storeChart":title="عرض حركة المتجر - رسم بياني";html='<div class="notice">إجمالي حركة الأصناف في الفترة: '+(pur.reduce((s,p)=>s+Number(p.qty||0),0)-inv.reduce((s,i)=>s+(i.items||[]).reduce((a,x)=>a+Number(x.qty||0),0),0))+'</div>'+reportTable(["الصنف","الرصيد الحالي","الوحدة"],products.map(p=>[p.name,p.stock==null?"غير متابع":p.stock,p.unit]));break;
+default:title="التقرير";html='<div class="empty">التقرير غير متاح.</div>'}
+box.innerHTML=reportTitle(title)+html;box.scrollIntoView({behavior:"smooth",block:"start"})}
+function iTax(i,x){const subtotal=Number(i.subtotal||i.total||0),tax=Number(i.taxAmount||0);return subtotal?tax*(lineTotal(x)/subtotal):0}
 function cardList(target,list,desc,actions){target.replaceChildren();if(!list.length){target.innerHTML='<div class="empty">لا توجد بيانات بعد</div>';return}list.forEach(v=>{const d=document.createElement("div");d.className="list-item";const a=document.createElement("div");a.innerHTML=desc(v);const b=document.createElement("div");b.className="list-actions";actions(v).forEach(x=>b.append(x));d.append(a,b);target.append(d)})}
 function button(t,fn,c="btn-secondary"){const b=document.createElement("button");b.className="btn small "+c;b.textContent=t;b.onclick=fn;return b}
 function dashboard(){$("hSales").textContent=group(get("ah_invoices").filter(i=>i.date===today()),i=>i.total);$("hInv").textContent=get("ah_invoices").length;$("hCus").textContent=customers().length}
