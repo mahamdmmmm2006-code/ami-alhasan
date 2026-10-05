@@ -2606,7 +2606,7 @@
         const contacts = branchContacts(i.branch);
         return contacts.length ? '<div class="branch-contacts">' +
           contacts.map(([label, number, target]) =>
-            '<a href="https://wa.me/' + target + '" target="_blank" rel="noopener noreferrer"><span>واتساب ' +
+            '<a href="https://wa.me/' + target + '" target="_blank" rel="noopener noreferrer"><span>' +
             label + '</span><b dir="ltr">' + number + '</b></a>'
           ).join("") + '</div>' : "";
       }
@@ -2751,7 +2751,7 @@
         text(i.no, L, 216, 23, true, gold, "left");
         contacts.forEach(([label, number], n) => {
           const cx = n === 0 ? 895 : 345;
-          text("واتساب " + label, cx, 270, 21, true, gold, "center");
+          text(label, cx, 270, 21, true, gold, "center");
           ctx.save();
           ctx.direction = "ltr";
           text(number, cx, 305, 27, true, ink, "center");
