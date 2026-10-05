@@ -1223,6 +1223,16 @@
           margin-inline-start: auto;
         }
       }
+      .branch-contacts {display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px;}
+      .branch-contacts a {display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px;border:1px solid #e8e0d3;border-radius:5px;color:#282724;text-decoration:none;min-width:0;}
+      .branch-contacts span {color:#806332;font-size:11px;}
+      .branch-contacts b {font-size:13px;white-space:nowrap;}
+      .invoice-preview {min-height:0;}
+      .invoice-preview .formal-bottom {display:flex;flex-direction:column;gap:18px;}
+      .formal-totals {order:-1;width:100%;}
+      .formal-totals > div {padding:12px 16px;}
+      .formal-notes .formal-payment {margin-top:8px;}
+      @media(max-width:600px) {.branch-contacts b {font-size:12px;}.branch-contacts span {font-size:10px;}}
     </style>
   </head>
 
@@ -2576,11 +2586,32 @@
         card.append(d);
       }
 
+      function branchContacts(branch) {
+        const b = String(branch || "");
+        if (b.includes("جرجناز")) return [
+          ["الإدارة", "+30 699 233 0814", "306992330814"],
+          ["الاستعلامات", "+30 699 223 8101", "306992238101"]
+        ];
+        if (b.includes("جنديرس")) return [
+          ["الإدارة", "+963 998 804 781", "963998804781"],
+          ["الاستعلامات", "+31 6 37022173", "31637022173"]
+        ];
+        if (b.includes("اللاذقية") || b.includes("الاذقية") || b.includes("الصليبة")) return [
+          ["الإدارة", "0992752271", "963992752271"],
+          ["الاستعلامات", "+31 6 37022173", "31637022173"]
+        ];
+        return [];
+      }
+      function contactsMarkup(i) {
+        const contacts = branchContacts(i.branch);
+        return contacts.length ? '<div class="branch-contacts">' +
+          contacts.map(([label, number, target]) =>
+            '<a href="https://wa.me/' + target + '" target="_blank" rel="noopener noreferrer"><span>واتساب ' +
+            label + '</span><b dir="ltr">' + number + '</b></a>'
+          ).join("") + '</div>' : "";
+      }
       function invoiceLines(i) {
         return [
-          ["المجموع", i.subtotal ?? i.total],
-          ["الخصم", i.discount || 0],
-          ["الضريبة", i.taxAmount || 0],
           ["الإجمالي", i.total],
           ["المدفوع", paidOf(i)],
           ["المتبقي", dueOf(i)],
@@ -2594,6 +2625,7 @@
       <div class="formal-brand"><div class="formal-logo">AH</div><div><h2>محامص عمي الحسن</h2><p>عالم الموالح والمكسرات</p></div></div>
       <div class="formal-title"><h1>فاتورة مبيعات</h1><span>SALES INVOICE</span><b dir="ltr">${esc(i.no)}</b></div>
     </div>
+    ${contactsMarkup(i)}
     <div class="formal-registration">الرقم الضريبي: <b>906</b><span>|</span>السجل التجاري: <b>19236</b></div>
     <div class="formal-details">
       <div><span>اسم العميل</span><strong>${esc(i.customer)}</strong></div>
@@ -2607,7 +2639,7 @@
     )
       .map(
         ([label, n], idx) =>
-          `<div class="${idx === 3 ? "formal-grand" : idx === 5 ? "formal-due" : ""}"><span>${label}</span><b>${dualMarkup(n, i)}</b></div>`,
+          `<div class="${idx === 0 ? "formal-grand" : idx === 2 ? "formal-due" : ""}"><span>${label}</span><b>${dualMarkup(n, i)}</b></div>`,
       )
       .join("")}</div></div>
     <div class="formal-signatures"><div><span>توقيع البائع</span><i></i></div><div><span>توقيع العميل</span><i></i></div><div><span>الختم</span><i></i></div></div>
@@ -2670,17 +2702,19 @@
           phone = wrap(i.phone || "—", 475, 27, true);
         const row1 = Math.max(100, customer.length * 34 + 52),
           row2 = Math.max(100, branch.length * 34 + 52, phone.length * 34 + 52);
-        const tableY = 348 + row1 + row2 + 36;
-        const noteLines = wrap(i.notes || "—", 475, 25),
+        const contacts = branchContacts(i.branch);
+        const contactHeight = contacts.length ? 100 : 0;
+        const detailY = 348 + contactHeight;
+        const tableY = detailY + row1 + row2 + 36;
+        const noteLines = wrap(i.notes || "—", D - 40, 25),
           paymentLines = (i.payments || []).flatMap((p) =>
-            wrap(p.date.slice(0, 10) + " — " + money(p.amount, i.currency), 475, 23),
+            wrap(p.date.slice(0, 10) + " — " + money(p.amount, i.currency), D - 40, 23),
           );
-        const summaryY = tableY + 64 + rows.reduce((s, r) => s + r.h, 0) + 72;
-        const summaryH = Math.max(
-          fxEnabled(i) ? 580 : 360,
-          90 + noteLines.length * 34 + 72 + paymentLines.length * 32,
-        );
-        canvas.height = Math.max(1754, summaryY + summaryH + 300);
+        const summaryY = tableY + 64 + rows.reduce((s, r) => s + r.h, 0) + 28;
+        const totalRowH = fxEnabled(i) ? 88 : 57;
+        const notesY = summaryY + invoiceLines(i).length * totalRowH + 30;
+        const noteHeight = 150 + noteLines.length * 34 + (paymentLines.length ? 46 + paymentLines.length * 32 : 0);
+        canvas.height = notesY + noteHeight + 260;
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, W, canvas.height);
         ctx.direction = "rtl";
@@ -2715,8 +2749,16 @@
         text("فاتورة مبيعات", L, 130, 37, true, ink, "left");
         text("SALES INVOICE", L, 172, 16, false, muted, "left");
         text(i.no, L, 216, 23, true, gold, "left");
-        fill(L, 266, D, 52, "#f5f3ee");
-        text("الرقم الضريبي: 906  |  السجل التجاري: 19236", 620, 292, 25, true, ink, "center");
+        contacts.forEach(([label, number], n) => {
+          const cx = n === 0 ? 895 : 345;
+          text("واتساب " + label, cx, 270, 21, true, gold, "center");
+          ctx.save();
+          ctx.direction = "ltr";
+          text(number, cx, 305, 27, true, ink, "center");
+          ctx.restore();
+        });
+        fill(L, 266 + contactHeight, D, 52, "#f5f3ee");
+        text("الرقم الضريبي: 906  |  السجل التجاري: 19236", 620, 292 + contactHeight, 25, true, ink, "center");
         const mid = 620;
         function detail(label, lines, x, y, w, h) {
           fill(x, y, w, h, "#fafbf9");
@@ -2724,13 +2766,13 @@
           text(label, x + w - 22, y + 25, 20, false, muted);
           lines.forEach((s, n) => text(s, x + w - 22, y + 61 + n * 34, 27, true));
         }
-        detail("اسم العميل", customer, mid + 10, 348, 540, row1);
-        detail("تاريخ الفاتورة", [i.date], L, 348, 540, row1);
-        detail("رقم الهاتف", phone, mid + 10, 348 + row1 + 8, 540, row2);
-        detail("الفرع / العملة", branch, L, 348 + row1 + 8, 540, row2);
+        detail("اسم العميل", customer, mid + 10, detailY, 540, row1);
+        detail("تاريخ الفاتورة", [i.date], L, detailY, 540, row1);
+        detail("رقم الهاتف", phone, mid + 10, detailY + row1 + 8, 540, row2);
+        detail("الفرع / العملة", branch, L, detailY + row1 + 8, 540, row2);
         fill(L, tableY, D, 64, ink);
         let x = R;
-        ["م", "الصنف / البيان", "الكمية", "الوحدة", "سعر الوحدة*", "الإجمالي"].forEach((h, k) => {
+        ["م", "الصنف / البيان", "الكمية", "الوحدة", "سعر الوحدة", "الإجمالي"].forEach((h, k) => {
           text(h, x - widths[k] / 2, tableY + 32, 23, true, "#fff", "center");
           x -= widths[k];
         });
@@ -2758,9 +2800,9 @@
           line(L, y + row.h, R, y + row.h);
           y += row.h;
         });
-        text("ملاحظات الفاتورة", R, summaryY + 22, 23, true, gold);
-        noteLines.forEach((s, n) => text(s, R, summaryY + 65 + n * 34, 25));
-        let noteY = summaryY + 94 + noteLines.length * 34;
+        text("ملاحظات الفاتورة", R, notesY + 22, 23, true, gold);
+        noteLines.forEach((s, n) => text(s, R, notesY + 65 + n * 34, 25));
+        let noteY = notesY + 94 + noteLines.length * 34;
         text(
           dueOf(i) > 0 ? "متبقي للدفع: " + money(dueOf(i), i.currency) : "مسددة بالكامل",
           R,
@@ -2777,12 +2819,11 @@
             text(s, R, noteY, 23);
           });
         }
-        const tw = 520;
-        const totalRowH = fxEnabled(i) ? 88 : 57;
+        const tw = D;
         invoiceLines(i).forEach(([label, n], idx) => {
           const sy = summaryY + idx * totalRowH,
-            isGrand = idx === 3;
-          fill(L, sy, tw, totalRowH, isGrand ? ink : idx === 5 ? "#f4eddf" : "#fafbf9");
+            isGrand = idx === 0;
+          fill(L, sy, tw, totalRowH, isGrand ? ink : idx === 2 ? "#f4eddf" : "#fafbf9");
           line(L, sy + totalRowH, L + tw, sy + totalRowH, "#e6e7e3");
           text(label, L + tw - 20, sy + totalRowH / 2, 25, true, isGrand ? "#fff" : ink);
           if (fxEnabled(i)) {
