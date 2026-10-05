@@ -1256,6 +1256,21 @@
       .customer-menu .menu-chevron { color:#9b722a; font-size:26px; }
       .customer-menu > button:hover { background:#fffaf0; border-color:#ad8b48; }
       .customer-menu > button:focus-visible { outline:3px solid #ad8b48; outline-offset:3px; }
+
+      .customer-menu-heading { display:flex; align-items:center; justify-content:center; gap:24px; padding:22px 12px 30px; font-size:30px; }
+      .customer-menu-heading > span { font-size:60px; }
+      .customer-menu { display:flex; flex-direction:column; gap:12px; }
+      .customer-menu > button { display:flex; align-items:center; gap:14px; width:100%; min-height:88px; padding:20px 16px; background:white; border:1px solid #e3e1dc; border-radius:10px; color:#252829; font:inherit; font-size:18px; text-align:right; cursor:pointer; }
+      .customer-menu > button > span:first-child { font-size:30px; flex-shrink:0; }
+      .customer-menu > button > span:nth-child(2) { flex:1; line-height:1.7; }
+      .customer-menu .menu-chevron { color:#9b722a; font-size:26px; }
+      .customer-menu > button:hover { background:#fffaf0; border-color:#ad8b48; }
+      .customer-menu > button:focus-visible { outline:3px solid #ad8b48; outline-offset:3px; }
+      .report-summary { margin-top:12px; padding:12px; border-radius:12px; background:#fbf7ef; color:#6f501f; line-height:1.9; }
+      .report-summary strong { color:#252829; }
+      .customer-report-row .meta { line-height:1.8; }
+      .customer-report-row .status-debit { color:#8a6425; font-weight:700; }
+      .customer-report-row .status-credit { color:#397153; font-weight:700; }
     </style>
   </head>
 
@@ -1479,27 +1494,44 @@
       </section>
       <section id="customerAdd" class="screen">
         <div class="section-title"><h2>إضافة عميل جديد</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
-        <div class="card section-empty"><span aria-hidden="true">➕</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+        <div class="card">
+          <label>اسم العميل *</label><input id="customerFormName" placeholder="مثال: إبراهيم">
+          <div class="row" style="margin-top:10px"><div><label>رقم الهاتف</label><input id="customerFormPhone" inputmode="tel"></div><div><label>العنوان</label><input id="customerFormAddress"></div></div>
+          <label style="margin-top:10px">ملاحظات</label><textarea id="customerFormNotes" rows="3"></textarea>
+          <div class="actions"><button id="saveCustomerButton" class="btn btn-primary" onclick="saveCustomer()">حفظ العميل</button><button id="cancelCustomerButton" class="btn btn-secondary" onclick="cancelCustomerEdit()" hidden>إلغاء التعديل</button></div>
+        </div>
+        <div id="customerFormList"></div>
       </section>
       <section id="customerOpening" class="screen">
         <div class="section-title"><h2>الأرصدة الافتتاحية والمبالغ النقدية للعملاء</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
-        <div class="card section-empty"><span aria-hidden="true">💱</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+        <div class="card">
+          <label>العميل *</label><select id="openingCustomer"></select>
+          <div class="row" style="margin-top:10px"><div><label>نوع الرصيد</label><select id="openingDirection"><option value="debit">مبلغ على العميل</option><option value="credit">رصيد للعميل</option></select></div><div><label>المبلغ *</label><input id="openingAmount" type="number" min="0.01" step="0.01"></div></div>
+          <div class="row" style="margin-top:10px"><div><label>العملة</label><select id="openingCurrency"><option>$</option><option>ل.س</option><option>€</option><option>₺</option></select></div><div><label>الفرع</label><select id="openingBranch"><option>غير محدد</option><option>إدلب — جرجناز</option><option>حلب — جنديرس</option><option>اللاذقية — الصليبة</option></select></div></div>
+          <div class="row" style="margin-top:10px"><div><label>التاريخ</label><input id="openingDate" type="date"></div><div><label>بيان</label><input id="openingNote" placeholder="رصيد افتتاحي"></div></div>
+          <button class="btn btn-primary full" style="margin-top:12px" onclick="saveCustomerOpening()">حفظ الرصيد</button>
+        </div>
+        <div id="customerOpeningList"></div>
       </section>
       <section id="customerDebts" class="screen">
-        <div class="section-title"><h2>ذمم العملاء - المبالغ المتبقية عند العملاء من الفواتير الآجلة</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
-        <div class="card section-empty"><span aria-hidden="true">👤</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+        <div class="section-title"><h2>ذمم العملاء</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
+        <div class="card"><p class="meta">المبالغ المتبقية عند العملاء من الفواتير الآجلة مع الأرصدة الافتتاحية.</p><input id="customerDebtSearch" class="search" placeholder="ابحث باسم العميل أو العملة..." oninput="renderCustomerDebts()"><div id="customerDebtSummary" class="report-summary"></div></div>
+        <div id="customerDebtList"></div>
       </section>
       <section id="customerDebtReport" class="screen">
         <div class="section-title"><h2>ذمم العملاء - تقرير</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
-        <div class="card section-empty"><span aria-hidden="true">📄</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+        <div class="card"><div class="row"><div><label>من تاريخ</label><input id="customerReportFrom" type="date" onchange="renderCustomerDebtReport()"></div><div><label>إلى تاريخ</label><input id="customerReportTo" type="date" onchange="renderCustomerDebtReport()"></div><div><label>الفرع</label><select id="customerReportBranch" onchange="renderCustomerDebtReport()"><option value="">كل الفروع</option><option>غير محدد</option><option>إدلب — جرجناز</option><option>حلب — جنديرس</option><option>اللاذقية — الصليبة</option></select></div></div><div id="customerDebtReportSummary" class="report-summary"></div></div>
+        <div id="customerDebtReportBody"></div>
       </section>
       <section id="customerCreditReport" class="screen">
         <div class="section-title"><h2>العملاء المتبقي لهم أرصدة - تقرير</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
-        <div class="card section-empty"><span aria-hidden="true">📄</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+        <div class="card"><p class="meta">الأرصدة التي تظهر لصالح العميل من الأرصدة الافتتاحية بعد احتساب الدفعات والفواتير.</p><div id="customerCreditReportSummary" class="report-summary"></div></div>
+        <div id="customerCreditReportBody"></div>
       </section>
       <section id="customerBalanceCheck" class="screen">
         <div class="section-title"><h2>فحص أرصدة العملاء</h2><button class="back" onclick="showScreen('customers')">رجوع</button></div>
-        <div class="card section-empty"><span aria-hidden="true">📋</span><p>تفاصيل هذا الخيار بانتظار التخصيص.</p></div>
+        <div class="card"><p class="meta">يفحص الفواتير والأرصدة الافتتاحية وأسماء العملاء ويظهر أي بيانات تحتاج مراجعة.</p><button class="btn btn-primary full" onclick="runCustomerBalanceCheck()">بدء الفحص</button></div>
+        <div id="customerBalanceCheckResult"></div>
       </section>
       <section id="customerDirectory" class="screen">
         <div class="section-title">
@@ -1546,6 +1578,8 @@
             فاتورة جديدة لهذا العميل
           </button>
         </div>
+
+        <div id="customerBalanceDetails" class="card"></div>
 
         <div id="customerInvoices"></div>
       </section>
@@ -2911,11 +2945,13 @@
       }
       function exportBackup() {
         const data = {
-          version: 2,
+          version: 3,
           exportedAt: new Date().toISOString(),
           invoices: getStore("pos_invoices"),
           products: getStore("pos_products"),
           expenses: getStore("pos_expenses"),
+          customers: getStore("pos_customers"),
+          customerOpenings: getStore("pos_customer_openings"),
         };
         const url = URL.createObjectURL(
           new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }),
@@ -2930,8 +2966,10 @@
         if (!file) return;
         try {
           const d = JSON.parse(await file.text());
-          if (d.version !== 2 || !["invoices", "products", "expenses"].every((k) => Array.isArray(d[k])))
+          if (![2, 3].includes(d.version) || !["invoices", "products", "expenses"].every((k) => Array.isArray(d[k])))
             throw Error();
+          const backupCustomers = Array.isArray(d.customers) ? d.customers : [],
+            backupOpenings = Array.isArray(d.customerOpenings) ? d.customerOpenings : [];
           if (
             d.invoices.some(
               (i) =>
@@ -2957,13 +2995,15 @@
             d.expenses.some((e) => typeof e.name !== "string" || !Number.isFinite(e.amount) || e.amount < 0)
           )
             throw Error();
+          if (backupCustomers.some((c) => typeof c.name !== "string" || !c.name.trim()) || backupOpenings.some((o) => typeof o.customer !== "string" || !Number.isFinite(o.amount) || o.amount <= 0)) throw Error();
           if (!confirm("استبدال بيانات هذا الجهاز بالنسخة؟ سيتم الاحتفاظ بنسخة سابقة محلياً.")) return;
-          const keys = ["pos_invoices", "pos_products", "pos_expenses"],
+          const keys = ["pos_invoices", "pos_products", "pos_expenses", "pos_customers", "pos_customer_openings"],
+            values = [d.invoices, d.products, d.expenses, backupCustomers, backupOpenings],
             before = keys.map((k) => localStorage.getItem(k));
           localStorage.setItem("ah_before_restore", JSON.stringify(before));
           try {
             keys.forEach((k, n) =>
-              localStorage.setItem(k, JSON.stringify(d[["invoices", "products", "expenses"][n]])),
+              localStorage.setItem(k, JSON.stringify(values[n])),
             );
           } catch (e) {
             keys.forEach((k, n) =>
@@ -3103,6 +3143,58 @@
       newInvoice();
 
       updateHomeDashboard();
+      // Customer ledger modules: all seven customer actions use the same local records.
+      const legacyGetCustomers = getCustomers;
+      const customerKey = (v) => String(v || "").trim().toLocaleLowerCase();
+      let customerEditingId = null;
+      function getCustomerOpenings() { return getStore("pos_customer_openings"); }
+      getCustomers = function () {
+        const map = new Map();
+        getStore("pos_customers").forEach((c) => map.set(customerKey(c.name), { ...c, count: 0, invoices: [] }));
+        legacyGetCustomers().forEach((c) => {
+          const key = customerKey(c.name), old = map.get(key);
+          if (old) { old.count = c.count; old.invoices = c.invoices; if (!old.phone) old.phone = c.phone || ""; }
+          else map.set(key, { ...c });
+        });
+        return [...map.values()].sort((a, b) => a.name.localeCompare(b.name, "ar"));
+      };
+      function customerByName(name) { return getCustomers().find((c) => customerKey(c.name) === customerKey(name)); }
+      function customerOptionMarkup() { return '<option value="">اختر العميل</option>' + getCustomers().map((c) => '<option value="' + esc(c.name) + '">' + esc(c.name) + '</option>').join(""); }
+      function populateCustomerSelectors() { const select = $("openingCustomer"); if (!select) return; const old = select.value; select.innerHTML = customerOptionMarkup(); if ([...select.options].some((o) => o.value === old)) select.value = old; if (!$("openingDate").value) $("openingDate").value = today(); }
+      function renderCustomerAdd() { const rows = getStore("pos_customers"); cardList($("customerFormList"), rows, (c) => `<strong>${esc(c.name)}</strong><div class="meta">${esc(c.phone || "بدون هاتف")} · ${esc(c.address || "بدون عنوان")}</div>${c.notes ? `<div class="meta">${esc(c.notes)}</div>` : ""}`, (c) => [button("تعديل", () => editCustomer(c.id)), button("حذف", () => deleteCustomer(c.id), "btn-danger")]); }
+      function saveCustomer() {
+        const name = $("customerFormName").value.trim(); if (!name) { alert("أدخل اسم العميل"); return; }
+        const all = getStore("pos_customers"), key = customerKey(name), duplicate = all.findIndex((c) => customerKey(c.name) === key && c.id !== customerEditingId);
+        if (duplicate >= 0) { alert("العميل موجود؛ عدّل بياناته من القائمة"); return; }
+        const old = all.find((c) => c.id === customerEditingId), value = { id: customerEditingId || String(Date.now()), name, phone: $("customerFormPhone").value.trim(), address: $("customerFormAddress").value.trim(), notes: $("customerFormNotes").value.trim(), createdAt: old?.createdAt || Date.now() }, index = all.findIndex((c) => c.id === customerEditingId);
+        if (index < 0) all.unshift(value); else all[index] = value; setStore("pos_customers", all); cancelCustomerEdit(); refreshDatalists(); populateCustomerSelectors(); renderCustomerAdd(); updateHomeDashboard();
+      }
+      function editCustomer(id) { const c = getStore("pos_customers").find((x) => x.id === id); if (!c) return; customerEditingId = id; $("customerFormName").value = c.name; $("customerFormPhone").value = c.phone || ""; $("customerFormAddress").value = c.address || ""; $("customerFormNotes").value = c.notes || ""; $("saveCustomerButton").textContent = "حفظ التعديل"; $("cancelCustomerButton").hidden = false; window.scrollTo(0, 0); }
+      function cancelCustomerEdit() { customerEditingId = null; ["customerFormName", "customerFormPhone", "customerFormAddress", "customerFormNotes"].forEach((id) => { if ($(id)) $(id).value = ""; }); if ($("saveCustomerButton")) $("saveCustomerButton").textContent = "حفظ العميل"; if ($("cancelCustomerButton")) $("cancelCustomerButton").hidden = true; }
+      function deleteCustomer(id) { const c = getStore("pos_customers").find((x) => x.id === id); if (!c) return; if (getStore("pos_invoices").some((i) => customerKey(i.customer) === customerKey(c.name)) || getCustomerOpenings().some((o) => customerKey(o.customer) === customerKey(c.name))) { alert("لا يمكن حذف عميل مرتبط بفواتير أو أرصدة؛ يمكنك تعديل بياناته."); return; } if (!confirm("حذف العميل؟")) return; setStore("pos_customers", getStore("pos_customers").filter((x) => x.id !== id)); refreshDatalists(); populateCustomerSelectors(); renderCustomerAdd(); updateHomeDashboard(); }
+      function saveCustomerOpening() { const customer = $("openingCustomer").value, amount = Number($("openingAmount").value); if (!customer || !Number.isFinite(amount) || amount <= 0) { alert("اختر العميل وأدخل مبلغاً صحيحاً"); return; } const row = { id: String(Date.now()), customer, amount: round(amount), currency: $("openingCurrency").value, direction: $("openingDirection").value, branch: $("openingBranch").value, date: $("openingDate").value || today(), note: $("openingNote").value.trim() }; setStore("pos_customer_openings", [row, ...getCustomerOpenings()]); $("openingAmount").value = ""; $("openingNote").value = ""; renderCustomerOpenings(); renderCustomerDebts(); renderCustomerDebtReport(); renderCustomerCreditReport(); updateHomeDashboard(); }
+      function renderCustomerOpenings() { cardList($("customerOpeningList"), getCustomerOpenings(), (o) => `<strong>${esc(o.customer)}</strong><div class="meta">${esc(o.date)} · ${esc(money(o.amount, o.currency))} · ${o.direction === "debit" ? "على العميل" : "رصيد للعميل"}</div><div class="meta">${esc(o.branch || branches[0])}${o.note ? " · " + esc(o.note) : ""}</div>`, (o) => [button("حذف", () => deleteCustomerOpening(o.id), "btn-danger")]); }
+      function deleteCustomerOpening(id) { if (!confirm("حذف هذا الرصيد الافتتاحي؟")) return; setStore("pos_customer_openings", getCustomerOpenings().filter((o) => o.id !== id)); renderCustomerOpenings(); renderCustomerDebts(); renderCustomerDebtReport(); renderCustomerCreditReport(); }
+      function customerBalanceRows(options = {}) {
+        const { from = "", to = "", branch = "" } = options, map = new Map();
+        const ensure = (customer, currency) => { const key = customerKey(customer) + "\u0000" + currency; if (!map.has(key)) map.set(key, { customer, currency, invoiceDue: 0, openingDebit: 0, openingCredit: 0, invoiceCount: 0, branchSet: new Set() }); return map.get(key); };
+        getStore("pos_invoices").filter((i) => (!from || i.date >= from) && (!to || i.date <= to) && (!branch || (i.branch || branches[0]) === branch)).forEach((i) => { if (!i.customer) return; const row = ensure(i.customer, i.currency || "غير محددة"); row.invoiceDue = round(row.invoiceDue + dueOf(i)); row.invoiceCount++; row.branchSet.add(i.branch || branches[0]); });
+        getCustomerOpenings().filter((o) => (!from || (o.date || "") >= from) && (!to || (o.date || "") <= to) && (!branch || (o.branch || branches[0]) === branch)).forEach((o) => { const row = ensure(o.customer, o.currency || "غير محددة"); if (o.direction === "credit") row.openingCredit = round(row.openingCredit + Number(o.amount || 0)); else row.openingDebit = round(row.openingDebit + Number(o.amount || 0)); row.branchSet.add(o.branch || branches[0]); });
+        return [...map.values()].map((r) => ({ ...r, balance: round(r.invoiceDue + r.openingDebit - r.openingCredit), branches: [...r.branchSet] })).filter((r) => r.invoiceDue || r.openingDebit || r.openingCredit);
+      }
+      function balanceStatus(r) { return r.balance > 0 ? '<span class="status-debit">على العميل: ' + esc(money(r.balance, r.currency)) + '</span>' : r.balance < 0 ? '<span class="status-credit">للعميل: ' + esc(money(Math.abs(r.balance), r.currency)) + '</span>' : '<span>متوازن</span>'; }
+      function balanceSummary(rows) { const debit = rows.filter((r) => r.balance > 0), credit = rows.filter((r) => r.balance < 0); return '<div>إجمالي الذمم: <strong>' + esc(grouped(debit, (r) => r.balance)) + '</strong></div><div>أرصدة لصالح العملاء: <strong>' + esc(grouped(credit, (r) => Math.abs(r.balance))) + '</strong></div>'; }
+      function balanceDescribe(r) { return `<strong>${esc(r.customer)}</strong><div class="meta">${esc(r.currency)} · الفواتير الآجلة: ${esc(money(r.invoiceDue, r.currency))} · الافتتاحي على العميل: ${esc(money(r.openingDebit, r.currency))} · الافتتاحي للعميل: ${esc(money(r.openingCredit, r.currency))}</div><div>${balanceStatus(r)}</div>`; }
+      function renderCustomerDebts() { const q = ($('customerDebtSearch')?.value || '').trim().toLowerCase(), all = customerBalanceRows(), rows = all.filter((r) => r.balance > 0 && (r.customer + ' ' + r.currency).toLowerCase().includes(q)); $('customerDebtSummary').innerHTML = balanceSummary(all.filter((r) => r.balance > 0)); cardList($('customerDebtList'), rows, balanceDescribe, (r) => [button('كشف الحساب', () => openCustomer(r.customer))]); }
+      function renderCustomerDebtReport() { const rows = customerBalanceRows({ from: $('customerReportFrom').value, to: $('customerReportTo').value, branch: $('customerReportBranch').value }).filter((r) => r.balance !== 0); $('customerDebtReportSummary').innerHTML = balanceSummary(rows); cardList($('customerDebtReportBody'), rows, balanceDescribe, (r) => [button('كشف الحساب', () => openCustomer(r.customer))]); }
+      function renderCustomerCreditReport() { const rows = customerBalanceRows().filter((r) => r.balance < 0); $('customerCreditReportSummary').innerHTML = balanceSummary(rows); cardList($('customerCreditReportBody'), rows, balanceDescribe, (r) => [button('كشف الحساب', () => openCustomer(r.customer))]); }
+      function runCustomerBalanceCheck() { const issues = [], all = getStore('pos_customers'), names = new Set(); all.forEach((c) => { const k = customerKey(c.name); if (!c.name) issues.push('يوجد عميل بلا اسم.'); else if (names.has(k)) issues.push('اسم عميل مكرر: ' + c.name); names.add(k); }); getStore('pos_invoices').forEach((i) => { if (!i.customer) issues.push('فاتورة ' + (i.no || 'بدون رقم') + ' بلا اسم عميل.'); if (!Number.isFinite(Number(i.total)) || Number(i.total) < 0) issues.push('إجمالي غير صحيح في الفاتورة ' + (i.no || 'بدون رقم') + '.'); if (paidOf(i) > Number(i.total) + 0.0001) issues.push('المدفوع أكبر من الإجمالي في الفاتورة ' + (i.no || 'بدون رقم') + '.'); }); getCustomerOpenings().forEach((o) => { if (!customerByName(o.customer)) issues.push('الرصيد الافتتاحي مرتبط بعميل غير موجود: ' + (o.customer || 'بدون اسم')); if (!Number.isFinite(Number(o.amount)) || Number(o.amount) <= 0) issues.push('مبلغ افتتاحي غير صحيح للعميل ' + (o.customer || 'بدون اسم') + '.'); }); const rows = customerBalanceRows(); $('customerBalanceCheckResult').innerHTML = issues.length ? '<div class="card"><strong>توجد ملاحظات تحتاج مراجعة</strong><ul>' + issues.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div class="card"><strong style="color:#397153">تم الفحص بنجاح</strong><p>تم فحص ' + rows.length + ' رصيداً و' + getStore('pos_invoices').length + ' فاتورة، ولم تظهر أخطاء في أرصدة العملاء.</p></div>'; }
+      const legacyOpenCustomer = openCustomer;
+      openCustomer = function (name) { legacyOpenCustomer(name); const rows = customerBalanceRows().filter((r) => customerKey(r.customer) === customerKey(name)); $('customerBalanceDetails').innerHTML = rows.length ? '<strong>الرصيد المحسوب</strong>' + rows.map((r) => '<div class="meta" style="margin-top:6px">' + esc(r.currency) + ' · ' + balanceStatus(r) + '</div>').join('') : '<span class="meta">لا يوجد رصيد افتتاحي أو متبقٍ لهذا العميل.</span>'; };
+      const customerModuleShowScreen = showScreen;
+      showScreen = function (id) { customerModuleShowScreen(id); if (id === 'customerAdd') renderCustomerAdd(); if (id === 'customerOpening') { populateCustomerSelectors(); renderCustomerOpenings(); } if (id === 'customerDebts') renderCustomerDebts(); if (id === 'customerDebtReport') renderCustomerDebtReport(); if (id === 'customerCreditReport') renderCustomerCreditReport(); if (id === 'customerBalanceCheck') runCustomerBalanceCheck(); };
+      function renderCustomerModules() { populateCustomerSelectors(); renderCustomerAdd(); renderCustomerOpenings(); renderCustomerDebts(); renderCustomerDebtReport(); renderCustomerCreditReport(); runCustomerBalanceCheck(); }
+      renderCustomerModules();
     </script>
   </body>
 </html>
