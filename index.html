@@ -1233,6 +1233,19 @@
       .formal-totals > div {padding:12px 16px;}
       .formal-notes .formal-payment {margin-top:8px;}
       @media(max-width:600px) {.branch-contacts b {font-size:12px;}.branch-contacts span {font-size:10px;}}
+
+      /* Two-column POS launcher; invoice styles remain independent. */
+      #home .pos-menu { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin-bottom: 20px; }
+      #home .pos-menu .tile { width:100%; min-width:0; min-height:170px; aspect-ratio:1.15; border:1px solid #d4d4d4; border-radius:14px; background:#fff; color:#202528; align-items:center; justify-content:center; gap:22px; padding:18px 8px; box-shadow:none; font-family:inherit; }
+      #home .pos-menu .emoji { width:auto; height:auto; background:none; border:0; border-radius:0; font-size:58px; line-height:1.2; }
+      #home .pos-menu .label { font-size:22px; font-weight:600; line-height:1.5; }
+      #home .pos-menu .tile:hover { border-color:#ad8b48; background:#fffdf8; }
+      #home .home-hero { margin-top:16px; }
+      .section-empty { text-align:center; padding:48px 20px; }
+      .section-empty > span { font-size:58px; }
+      .section-empty p { color:var(--muted); }
+      @media(min-width:700px) { #home .pos-menu .tile { min-height:190px; aspect-ratio:auto; } }
+      @media(max-width:360px) { #home .pos-menu .tile { min-height:145px; gap:14px; } #home .pos-menu .label { font-size:19px; } }
     </style>
   </head>
 
@@ -1247,6 +1260,16 @@
 
     <main>
       <section id="home" class="screen active">
+        <div class="grid-menu pos-menu">
+          <button type="button" class="tile" onclick="showScreen('salesHub')"><span class="emoji" aria-hidden="true">🛒</span><span class="label">المبيعات</span></button>
+          <button type="button" class="tile" onclick="showScreen('purchases')"><span class="emoji" aria-hidden="true">🛍️</span><span class="label">المشتريات</span></button>
+          <button type="button" class="tile" onclick="showScreen('customers')"><span class="emoji" aria-hidden="true">👤</span><span class="label">العملاء</span></button>
+          <button type="button" class="tile" onclick="showScreen('suppliers')"><span class="emoji" aria-hidden="true">🤝</span><span class="label">الموردين</span></button>
+          <button type="button" class="tile" onclick="showScreen('cashbox')"><span class="emoji" aria-hidden="true">🔐</span><span class="label">الصندوق</span></button>
+          <button type="button" class="tile" onclick="showScreen('expenses')"><span class="emoji" aria-hidden="true">👛</span><span class="label">المصروفات</span></button>
+          <button type="button" class="tile" onclick="showScreen('products')"><span class="emoji" aria-hidden="true">📦</span><span class="label">المخزون</span></button>
+          <button type="button" class="tile" onclick="showScreen('reports')"><span class="emoji" aria-hidden="true">📊</span><span class="label">الاستعلامات</span></button>
+        </div>
         <div class="home-hero">
           <div class="hero-kicker">لوحة التحكم</div>
 
@@ -1273,57 +1296,24 @@
           </div>
         </div>
 
-        <div class="quick-title">
-          <h3>الوصول السريع</h3>
-
-          <span> إدارة أعمالك بسهولة </span>
-        </div>
-
-        <div class="grid-menu">
-          <div
-            class="tile"
-            onclick="
-              newInvoice();
-              showScreen('sale');
-            "
-          >
-            <div class="emoji">🛒</div>
-
-            <div class="label">فاتورة جديدة</div>
-          </div>
-
-          <div class="tile" onclick="showScreen('invoices')">
-            <div class="emoji">🧾</div>
-
-            <div class="label">الفواتير</div>
-          </div>
-
-          <div class="tile" onclick="showScreen('customers')">
-            <div class="emoji">👤</div>
-
-            <div class="label">العملاء</div>
-          </div>
-
-          <div class="tile" onclick="showScreen('products')">
-            <div class="emoji">📦</div>
-
-            <div class="label">الأصناف</div>
-          </div>
-
-          <div class="tile" onclick="showScreen('expenses')">
-            <div class="emoji">👛</div>
-
-            <div class="label">المصروفات</div>
-          </div>
-
-          <div class="tile" onclick="showScreen('reports')">
-            <div class="emoji">📊</div>
-
-            <div class="label">التقارير</div>
-          </div>
-        </div>
       </section>
 
+      <section id="salesHub" class="screen">
+        <div class="section-title"><h2>المبيعات</h2><button class="back" onclick="showScreen('home')">رجوع</button></div>
+        <div class="card"><div class="actions"><button class="btn btn-primary" onclick="newInvoice();showScreen('sale')">فاتورة مبيعات جديدة</button><button class="btn btn-secondary" onclick="showScreen('invoices')">فواتير المبيعات</button></div></div>
+      </section>
+      <section id="purchases" class="screen">
+        <div class="section-title"><h2>المشتريات</h2><button class="back" onclick="showScreen('home')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">🛍️</span><h3>المشتريات</h3><p>تفاصيل هذا القسم بانتظار التخصيص.</p></div>
+      </section>
+      <section id="suppliers" class="screen">
+        <div class="section-title"><h2>الموردين</h2><button class="back" onclick="showScreen('home')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">🤝</span><h3>الموردين</h3><p>تفاصيل هذا القسم بانتظار التخصيص.</p></div>
+      </section>
+      <section id="cashbox" class="screen">
+        <div class="section-title"><h2>الصندوق</h2><button class="back" onclick="showScreen('home')">رجوع</button></div>
+        <div class="card section-empty"><span aria-hidden="true">🔐</span><h3>الصندوق</h3><p>تفاصيل هذا القسم بانتظار التخصيص.</p></div>
+      </section>
       <section id="sale" class="screen">
         <div class="section-title">
           <h2 id="saleTitle">فاتورة جديدة</h2>
@@ -3036,10 +3026,6 @@
           '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
           paths[name] +
           '"/></svg>';
-        document.querySelectorAll(".tile .emoji").forEach((e, n) => {
-          e.innerHTML = icon(["cart", "receipt", "person", "box", "wallet", "chart"][n]);
-          e.style.color = "#9b722a";
-        });
         document
           .querySelectorAll(".nav-btn span")
           .forEach((e, n) => (e.innerHTML = icon(["home", "person", "plus", "receipt"][n])));
@@ -3073,3 +3059,4 @@
     </script>
   </body>
 </html>
+
