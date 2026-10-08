@@ -330,7 +330,7 @@ function canvasFor(i){const c=document.createElement("canvas");c.width=1000;c.he
 function drawInvoiceCanvas(i,c){
  const ctx=c.getContext("2d"),W=c.width,left=45,right=955,inner=910;ctx.textBaseline="middle";ctx.fillStyle="#fff";ctx.fillRect(0,0,W,c.height);
  const fill=(x,y,w,h,color)=>{ctx.fillStyle=color;ctx.fillRect(x,y,w,h)};
- const text=(value,x,y,size=18,bold=false,color="#292a2d",align="right",dir="rtl",maxWidth)=>{ctx.save();ctx.direction=dir;ctx.textAlign=align;ctx.fillStyle=color;ctx.font=(bold?"bold ":"")+size+"px Arial";ctx.fillText(String(value??""),x,y,maxWidth);ctx.restore()};
+ const text=(value,x,y,size=18,bold=false,color="#292a2d",align="right",dir="rtl",maxWidth)=>{ctx.save();ctx.direction=dir;ctx.textAlign=align;ctx.fillStyle=color;ctx.font=(bold?"bold ":"")+size+"px Arial";if(maxWidth==null)ctx.fillText(String(value??""),x,y);else ctx.fillText(String(value??""),x,y,maxWidth);ctx.restore()};
  const moneyLines=n=>dual(n,i.currency,i.exchangeRate||140);
  const amount=(n,x,y,large=false,fg="#292a2d")=>{const lines=moneyLines(n);text(lines[0],x,y-(lines.length>1?9:0),large?22:17,true,fg,"left","ltr");if(lines[1])text(lines[1],x,y+13,15,true,large?"#e0e0e0":"#65666a","left","ltr")};
  let y=30;fill(left,y,inner,5,"#c4a15c");y+=46;text("محامص عمي الحسن",right,y,26,true);text("عالم الموالح والمكسرات",right,y+28,16,false,"#817b6f");ctx.beginPath();ctx.arc(92,y+5,36,0,Math.PI*2);ctx.strokeStyle="#b89756";ctx.lineWidth=2;ctx.stroke();text("AH",92,y+6,27,false,"#9f7c3d","center","ltr");text("فاتورة مبيعات",left,y-4,25,true,"#292a2d","left");text("SALES INVOICE",left,y+23,12,false,"#888477","left","ltr");text(i.no,left,y+51,21,true,"#a18041","left","ltr");y+=82;
