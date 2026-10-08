@@ -333,7 +333,7 @@ function canvasFor(i){
  const values=n=>dual(n,i.currency,i.exchangeRate||140);
  const amount=(n,a,b,inverse=false)=>{const v=values(n);txt(v[0],a,b-(v.length>1?8:0),inverse?21:16,true,inverse?"#fff":"#292a2d","left","ltr");if(v[1])txt(v[1],a,b+13,14,true,inverse?"#e5e5e5":"#65666a","left","ltr")};
  x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);box(L,28,W,5,"#c4a15c");
- txt("محامص عمي الحسن",R,70,27,true);txt("عالم الموالح والمكسرات",R,99,16,false,"#817b6f");x.beginPath();x.arc(92,77,36,0,Math.PI*2);x.strokeStyle="#b89756";x.lineWidth=2;x.stroke();txt("AH",92,78,27,false,"#9f7c3d","center","ltr");
+ txt("محامص عمي الحسن",R,70,27,true);txt("عالم الموالح والمكسرات",R,99,16,false,"#817b6f");x.beginPath();x.arc(500,77,36,0,Math.PI*2);x.strokeStyle="#b89756";x.lineWidth=2;x.stroke();txt("AH",500,78,27,false,"#9f7c3d","center","ltr");
  txt("فاتورة مبيعات",L,60,24,true,"#292a2d","left");txt("SALES INVOICE",L,88,12,false,"#888477","left","ltr");txt(i.no,L,120,20,true,"#a18041","left","ltr");
  let y=145;box(L,y,W,48,"#f4f1ea");txt("الرقم الضريبي: 906",R-18,y+24,15,true);box(500,y+12,1,24,"#c4a15c");txt("السجل التجاري: 19236",L+18,y+24,15,true,"#292a2d","left");y+=62;
  const details=[["اسم العميل",i.customer],["تاريخ الفاتورة",i.date],["رقم الهاتف",i.phone||"—"],["الفرع / العملة",(i.branch||"غير محدد")+" · "+i.currency]];
